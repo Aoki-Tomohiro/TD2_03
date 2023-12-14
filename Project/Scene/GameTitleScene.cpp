@@ -3,6 +3,7 @@
 void GameTitleScene::Initialize() {
 	//レンダラーのインスタンスを取得
 	renderer_ = Renderer::GetInstance();
+
 }
 
 void GameTitleScene::Finalize() {
