@@ -2,6 +2,7 @@
 #include "Engine/Framework/Scene/IScene.h"
 #include "Engine/Framework/Object/GameObjectManager.h"
 #include "Engine/Base/Renderer.h"
+#include "Engine/Components/Input.h"
 
 class GameTitleScene : public IScene {
 public:
@@ -33,5 +34,8 @@ public:
 private:
 	//レンダラー
 	Renderer* renderer_ = nullptr;
+
+	//インプット
+	Input* input_ = nullptr;
 };
 

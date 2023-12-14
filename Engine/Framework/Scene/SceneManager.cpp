@@ -18,6 +18,7 @@ void SceneManager::DeleteInstance() {
 
 SceneManager::~SceneManager() {
 	//シーンの削除
+	currentScene_->Finalize();
 	delete currentScene_;
 }
 
@@ -26,6 +27,7 @@ void SceneManager::Update() {
 	if (nextScene_) {
 		//旧シーンの終了
 		if (currentScene_) {
+			currentScene_->Finalize();
 			delete currentScene_;
 		}
 		//シーン切り替え

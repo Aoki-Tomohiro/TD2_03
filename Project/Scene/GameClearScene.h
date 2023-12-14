@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/Framework/Scene/IScene.h"
+#include "Engine/Components/Input.h"
 
 class GameClearScene : public IScene {
 public:
@@ -29,6 +30,7 @@ public:
 	void DrawUI() override;
 
 private:
-
+	//インプット
+	Input* input_ = nullptr;
 };
 

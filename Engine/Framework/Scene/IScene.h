@@ -18,7 +18,7 @@ public:
 
 	virtual void SetSceneManager(SceneManager* sceneManager) { sceneManager_ = sceneManager; };
 
-private:
+protected:
 	//シーンマネージャー
 	SceneManager* sceneManager_ = nullptr;
 };
