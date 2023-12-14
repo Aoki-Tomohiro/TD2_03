@@ -14,10 +14,15 @@ void GameOverScene::Update() {
 
 	if (input_->IsControllerConnected())
 	{
-		if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_A) || input_->IsPushKeyEnter(DIK_SPACE))
+		if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_A))
 		{
 			sceneManager_->ChangeScene("GameTitleScene");
 		}
+	}
+
+	if (input_->IsPushKeyEnter(DIK_SPACE))
+	{
+		sceneManager_->ChangeScene("GameTitleScene");
 	}
 
 	ImGui::Begin("Over");

@@ -18,11 +18,17 @@ void GameTitleScene::Update() {
 
 	if (input_->IsControllerConnected())
 	{
-		if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_A) || input_->IsPushKeyEnter(DIK_SPACE))
+		if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_A))
 		{
 			sceneManager_->ChangeScene("GamePlayScene");
 		}
 	}
+	
+	if (input_->IsPushKeyEnter(DIK_SPACE))
+	{
+		sceneManager_->ChangeScene("GamePlayScene");
+    }
+	
 
 	ImGui::Begin("Title");
 	ImGui::Text("GamePlayScene : A Button or SPACE");
