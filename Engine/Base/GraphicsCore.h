@@ -9,6 +9,7 @@
 #include <dxgi1_6.h>
 #include <memory>
 #include <wrl.h>
+#include <thread>
 #pragma comment(lib,"d3d12.lib")
 #pragma comment(lib,"dxgi.lib")
 #pragma comment(lib,"winmm.lib")
