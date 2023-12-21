@@ -4,6 +4,10 @@
 void GamePlayScene::Initialize() {
 	//インプットのインスタンスを取得
 	input_ = Input::GetInstance();
+	camera_.Initialize();
+
+	playerManager_ = std::make_unique<PlayerManager>();
+	playerManager_->Initialize();
 }
 
 void GamePlayScene::Finalize() {
@@ -11,6 +15,9 @@ void GamePlayScene::Finalize() {
 }
 
 void GamePlayScene::Update() {
+
+	//playerManager_->Update();
+	camera_.UpdateMatrix();
 
 	if (input_->IsControllerConnected())
 	{
@@ -42,7 +49,7 @@ void GamePlayScene::Update() {
 }
 
 void GamePlayScene::Draw() {
-
+	playerManager_->Draw(camera_);
 }
 
 void GamePlayScene::DrawUI() {

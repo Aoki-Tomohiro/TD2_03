@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine/Framework/Scene/IScene.h"
 #include "Engine/Components/Input.h"
+#include "Project/Player/PlayerManager.h"
 
 class GamePlayScene : public IScene {
 public:
@@ -30,7 +31,12 @@ public:
 	void DrawUI() override;
 
 private:
+	Camera camera_;
 	//インプット
 	Input* input_ = nullptr;
+
+	//プレイヤー
+	std::unique_ptr<PlayerManager> playerManager_ = nullptr;
+	std::unique_ptr<Player> player_ = nullptr;
 };
 

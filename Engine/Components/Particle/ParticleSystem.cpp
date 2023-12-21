@@ -41,7 +41,7 @@ void ParticleSystem::Initialize(const std::string& name) {
 	srvIndex_ = TextureManager::GetInstance()->CreateShaderResourceView(name, instancingResource_->GetResource(), kMaxInstance, sizeof(ParticleForGPU));
 
 	//テクスチャの読み込み
-	textureHandle_ = TextureManager::Load("Resources/Images/circle.png");
+	textureHandle_ = TextureManager::Load("Project/Resources/Images/circle.png");
 }
 
 void ParticleSystem::Update() {
