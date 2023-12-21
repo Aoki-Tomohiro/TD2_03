@@ -16,7 +16,7 @@ void GamePlayScene::Update() {
 	{
 		if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_A))
 		{
-			sceneManager_->ChangeScene("GameClearScene");
+			sceneManager_->ChangeScene("GamePuzzleScene");
 		}
 
 		if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_B) || input_->IsPushKeyEnter(DIK_RETURN))
@@ -27,7 +27,7 @@ void GamePlayScene::Update() {
 
 	if (input_->IsPushKeyEnter(DIK_SPACE))
 	{
-		sceneManager_->ChangeScene("GameClearScene");
+		sceneManager_->ChangeScene("GamePuzzleScene");
 	}
 
 	if (input_->IsPushKeyEnter(DIK_RETURN))
@@ -36,7 +36,7 @@ void GamePlayScene::Update() {
 	}
 
 	ImGui::Begin("Play");
-	ImGui::Text("GameClearScene : A Button or SPACE");
+	ImGui::Text("GamePuzzleScene : A Button or SPACE");
 	ImGui::Text("GameOverScene : B Button or ENTER");
 	ImGui::End();
 }

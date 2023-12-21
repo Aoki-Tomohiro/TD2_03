@@ -2,6 +2,7 @@
 #include "Engine/Framework/Scene/AbstractSceneFactory.h"
 #include "Project/Scene/GameTitleScene.h"
 #include "Project/Scene/GamePlayScene.h"
+#include "Project/Scene/GamePuzzleScene.h"
 #include "Project/Scene/GameClearScene.h"
 #include "Project/Scene/GameOverScene.h"
 

@@ -8,6 +8,11 @@ void GameTitleScene::Initialize() {
 	//インプットのインスタンスを取得
 	input_ = Input::GetInstance();
 
+	puzzleModel_.reset(Model::CreateFromOBJ("Project/Resources/Player", "Player.obj", renderer_->Opaque));
+
+	puzzle_ = std::make_unique<Puzzle>();
+	puzzle_->Initialize(puzzleModel_.get(), { 0.0f,0.0f,0.0f }, { 0.0f,0.0f,0.0f });
+
 }
 
 void GameTitleScene::Finalize() {
@@ -15,6 +20,8 @@ void GameTitleScene::Finalize() {
 }
 
 void GameTitleScene::Update() {
+
+	puzzle_->Update();
 
 	if (input_->IsControllerConnected())
 	{
@@ -37,6 +44,8 @@ void GameTitleScene::Update() {
 
 void GameTitleScene::Draw() {
 #pragma region モデルの描画処理
+
+	puzzle_->Draw(camera_);
 
 	//モデルの描画
 	renderer_->Render();

@@ -1,13 +1,11 @@
 #pragma once
 #include "Engine/Framework/Scene/IScene.h"
-#include "Engine/Framework/Object/GameObjectManager.h"
-#include "Engine/Base/Renderer.h"
 #include "Engine/Components/Input.h"
 #include "Engine/3D/Camera/Camera.h"
 
 #include "Project/GameObject/Puzzle/Puzzle.h"
 
-class GameTitleScene : public IScene {
+class GamePuzzleScene : public IScene {
 public:
 	/// <summary>
 	/// 初期化
@@ -18,7 +16,7 @@ public:
 	/// 終了処理
 	/// </summary>
 	void Finalize() override;
-	
+
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -35,9 +33,6 @@ public:
 	void DrawUI() override;
 
 private:
-	//レンダラー
-	Renderer* renderer_ = nullptr;
-
 	//インプット
 	Input* input_ = nullptr;
 
