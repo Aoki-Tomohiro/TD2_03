@@ -751,3 +751,20 @@ Quaternion Slerp(const Quaternion& q0, const Quaternion& q1, float t) {
 	result.w = scale0 * localQ0.w + scale1 * localQ1.w;
 	return result;
 }
+
+
+/*--------------------演算子オーバーロード---------------------------*/
+// 二項演算子
+Vector3 operator+(const Vector3& v1, const Vector3& v2) { return Add(v1, v2); }
+Vector3 operator+(const Vector3& v1, float s) { return { v1.x + s, v1.y + s, v1.z + s }; }
+Vector3 operator-(const Vector3& v1, const Vector3& v2) { return Subtract(v1, v2); }
+Vector3 operator-(const Vector3& v1, float s) { return { v1.x - s, v1.y - s, v1.z - s }; }
+Vector3 operator*(float s, const Vector3& v2) { return Multiply(v2, s); }
+Vector3 operator*(const Vector3& v, float s) { return s * v; }
+Vector3 operator/(const Vector3& v, float s) { return Multiply(v, 1.0f / s); }
+Matrix4x4 operator-(const Matrix4x4& m1, const Matrix4x4& m2) { return Subtract(m1, m2); }
+Matrix4x4 operator*(const Matrix4x4& m1, const Matrix4x4& m2) { return Multiply(m1, m2); }
+
+// 単項演算子
+Vector3 operator-(const Vector3& v) { return { -v.x, -v.y, -v.z }; }
+Vector3 operator+(const Vector3& v) { return v; }

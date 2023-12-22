@@ -11,6 +11,7 @@ public:
 
 	
 
+
 private:
 	WorldTransform worldTransformBase_;
 	std::unique_ptr <Model> Model_;
