@@ -8,6 +8,8 @@ void GameTitleScene::Initialize() {
 	//インプットのインスタンスを取得
 	input_ = Input::GetInstance();
 
+	camera_.Initialize();
+
 	puzzleModel_.reset(Model::CreateFromOBJ("Project/Resources/Player", "Player.obj", renderer_->Opaque));
 
 	puzzle_ = std::make_unique<Puzzle>();
@@ -22,6 +24,8 @@ void GameTitleScene::Finalize() {
 void GameTitleScene::Update() {
 
 	puzzle_->Update();
+
+	camera_.UpdateMatrix();
 
 	if (input_->IsControllerConnected())
 	{
