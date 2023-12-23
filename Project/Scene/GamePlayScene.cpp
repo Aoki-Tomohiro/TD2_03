@@ -1,5 +1,6 @@
 #include "GamePlayScene.h"
 #include "Engine/Framework/Scene/SceneManager.h"
+#include "Project/Game/GameManager.h"
 
 void GamePlayScene::Initialize() {
 	//インプットのインスタンスを取得
@@ -38,6 +39,7 @@ void GamePlayScene::Update() {
 	ImGui::Begin("Play");
 	ImGui::Text("GameClearScene : A Button or SPACE");
 	ImGui::Text("GameOverScene : B Button or ENTER");
+	ImGui::Text("StageNumber : %d", GameManager::stageNum);
 	ImGui::End();
 }
 

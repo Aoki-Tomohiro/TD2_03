@@ -321,6 +321,9 @@
     <ClCompile Include="Engine\Framework\Object\IGameObject.cpp">
       <Filter>ソース ファイル\Engine\Framework\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Scene\StageSelectScene.cpp">
+      <Filter>ソース ファイル\Project\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Externals\imgui\imconfig.h">
@@ -520,6 +523,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Framework\Object\GameObjectManager.h">
       <Filter>ヘッダー ファイル\Engine\Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Scene\StageSelectScene.h">
+      <Filter>ヘッダー ファイル\Project\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

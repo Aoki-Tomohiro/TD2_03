@@ -4,6 +4,9 @@
 
 class GameManager : public EngineCore {
 public:
+	//ステージの番号
+	static int stageNum;
+
 	/// <summary>
 	/// 初期化
 	/// </summary>

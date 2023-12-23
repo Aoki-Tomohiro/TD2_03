@@ -20,18 +20,18 @@ void GameTitleScene::Update() {
 	{
 		if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_A))
 		{
-			sceneManager_->ChangeScene("GamePlayScene");
+			sceneManager_->ChangeScene("StageSelectScene");
 		}
 	}
 	
 	if (input_->IsPushKeyEnter(DIK_SPACE))
 	{
-		sceneManager_->ChangeScene("GamePlayScene");
+		sceneManager_->ChangeScene("StageSelectScene");
     }
 	
 
 	ImGui::Begin("Title");
-	ImGui::Text("GamePlayScene : A Button or SPACE");
+	ImGui::Text("StageSelectScene : A Button or SPACE");
 	ImGui::End();
 }
 
