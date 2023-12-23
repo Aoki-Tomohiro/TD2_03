@@ -3,18 +3,32 @@
 
 void Puzzle::Initialize(Model* model, const Vector3& position)
 {
+	input_ = Input::GetInstance();
+
 	//モデルの初期化
 	assert(model);
 	model_ = model;
 	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
+
+	SetCollisionAttribute(kCollisionAttributeEnemy);
+	SetCollisionMask(kCollisionMaskEnemy);
+	SetCollisionPrimitive(kCollisionPrimitiveAABB);
 }
 
 void Puzzle::Update() {
 	
+	if (isHit_ == true && input_->IsPushKey(DIK_SPACE))
+	{
+		model_->GetMaterial()->SetColor({ 1.0f,0.0f,0.0f,1.0f });
+		isSelect_ = true;
+	}
+
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrixFromEuler();
+
+	isHit_ = false;
 }
 
 void Puzzle::Draw(const Camera& camera) {
@@ -23,7 +37,14 @@ void Puzzle::Draw(const Camera& camera) {
 }
 
 void Puzzle::OnCollision(Collider* collider) {
+	if (collider->GetCollisionAttribute() & kCollisionAttributePlayer)
+	{
+		isHit_ = true;
+	}
 
+	ImGui::Begin("HIT");
+	ImGui::Text("%d", isHit_);
+	ImGui::End();
 }
 
 Vector3 Puzzle::GetWorldPosition() {

@@ -5,7 +5,7 @@
 #include "Engine/Components/CollisionManager/Collider.h"
 #include "Engine/Components/Input.h"
 
-class Puzzle : public Collider {
+class PuzzlePlayer : public Collider {
 public:
 	/// <summary>
 	/// 初期化
@@ -13,7 +13,7 @@ public:
 	/// <param name="model"></param>
 	/// <param name="position"></param>
 	/// <param name="velocity"></param>
-	void Initialize(Model* model, const Vector3& position);
+	void Initialize(Model* model, const Vector3& position, const Vector3& velocity);
 
 	/// <summary>
 	/// 更新
@@ -44,24 +44,18 @@ public:
 	/// <returns></returns>
 	WorldTransform& GetWorldTransform() override { return worldTransform_; };
 
-	bool GetIsHit() { return isHit_; };
-
-	bool GetIsSelect() { return isSelect_; };
-
-	void SetIsSelect(bool isSelect) {isSelect_ = isSelect; };
-
 private:
 	Input* input_ = nullptr;
+
 	//モデル
 	Model* model_ = nullptr;
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_{};
 
+	Vector3 velocity_ = {};
+
 	Vector4 color_ = { 1.0f,1.0f,1.0f,1.0f };
-
-	bool isHit_ = false;
-
-	bool isSelect_ = false;
 };
+
 
 

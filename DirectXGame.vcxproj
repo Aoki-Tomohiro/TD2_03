@@ -210,6 +210,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Engine\Utilities\RandomGenerator.cpp" />
     <ClCompile Include="Engine\Utilities\ShaderCompiler.cpp" />
     <ClCompile Include="Project\GameObject\Puzzle\Puzzle.cpp" />
+    <ClCompile Include="Project\GameObject\Puzzle\PuzzlePlayer.cpp" />
     <ClCompile Include="Project\Game\GameManager.cpp" />
     <ClCompile Include="Project\Scene\GameClearScene.cpp" />
     <ClCompile Include="Project\Scene\GameOverScene.cpp" />
@@ -280,6 +281,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Engine\Utilities\RandomGenerator.h" />
     <ClInclude Include="Engine\Utilities\ShaderCompiler.h" />
     <ClInclude Include="Project\GameObject\Puzzle\Puzzle.h" />
+    <ClInclude Include="Project\GameObject\Puzzle\PuzzlePlayer.h" />
     <ClInclude Include="Project\Game\GameManager.h" />
     <ClInclude Include="Project\Scene\GameClearScene.h" />
     <ClInclude Include="Project\Scene\GameOverScene.h" />

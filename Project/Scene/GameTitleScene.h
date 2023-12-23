@@ -4,8 +4,10 @@
 #include "Engine/Base/Renderer.h"
 #include "Engine/Components/Input.h"
 #include "Engine/3D/Camera/Camera.h"
+#include "Engine/Components/CollisionManager/CollisionManager.h"
 
 #include "Project/GameObject/Puzzle/Puzzle.h"
+#include "Project/GameObject/Puzzle/PuzzlePlayer.h"
 
 class GameTitleScene : public IScene {
 public:
@@ -38,6 +40,9 @@ private:
 	//レンダラー
 	Renderer* renderer_ = nullptr;
 
+	//衝突マネージャー
+	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
+
 	//インプット
 	Input* input_ = nullptr;
 
@@ -45,5 +50,8 @@ private:
 
 	std::unique_ptr<Model> puzzleModel_[9];
 	std::unique_ptr<Puzzle> puzzle_[9];
+
+	std::unique_ptr<Model> puzzlePlayerModel_;
+	std::unique_ptr<PuzzlePlayer> puzzlePlayer_;
 };
 
