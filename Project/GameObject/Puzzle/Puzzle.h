@@ -12,7 +12,7 @@ public:
 	/// <param name="model"></param>
 	/// <param name="position"></param>
 	/// <param name="velocity"></param>
-	void Initialize(Model* model, const Vector3& position, const Vector3& velocity);
+	void Initialize(Model* model, const Vector3& position);
 
 	/// <summary>
 	/// 更新
@@ -48,9 +48,8 @@ private:
 	Model* model_ = nullptr;
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_{};
-	//速度
-	Vector3 velocity_ = { 0.0f,0.0f,0.0f };
 
+	Vector4 color_ = { 1.0f,1.0f,1.0f,1.0f };
 };
 
 

@@ -8,7 +8,7 @@ void GamePuzzleScene::Initialize() {
 	puzzleModel_.reset(Model::CreateFromOBJ("Project/Resources/Player", "Player.obj", Renderer::Opaque));
 
 	puzzle_ = std::make_unique<Puzzle>();
-	puzzle_->Initialize(puzzleModel_.get(), {0.0f,0.0f,0.0f}, {0.0f,0.0f,0.0f});
+	puzzle_->Initialize(puzzleModel_.get(), {0.0f,0.0f,0.0f});
 }
 
 void GamePuzzleScene::Finalize() {

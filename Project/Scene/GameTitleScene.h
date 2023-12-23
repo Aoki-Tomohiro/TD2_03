@@ -43,7 +43,7 @@ private:
 
 	Camera camera_;
 
-	std::unique_ptr<Model> puzzleModel_ = nullptr;
-	std::unique_ptr<Puzzle> puzzle_;
+	std::unique_ptr<Model> puzzleModel_[9];
+	std::unique_ptr<Puzzle> puzzle_[9];
 };
 
