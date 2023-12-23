@@ -68,7 +68,7 @@ void Player::MoveUpdata() {
 		const float kCharacterSpeed = 0.2f;
 		// 移動量
 		velocity_ = {
-			(float)input_->GetLeftStickX() / SHRT_MAX, 0.0f,0.0f };
+			(float)input_->GetLeftStickX()/* / SHRT_MAX*/, 0.0f,0.0f };
 
 		if (Length(velocity_) > value) {
 			isMove = true;

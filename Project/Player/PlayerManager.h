@@ -7,7 +7,7 @@ public:
 	void Initialize();
 	void Update();
 	void Draw(const Camera& camera);
-
+	Vector3 GetPlayerPosition() { return player_->GetWorldPosition(); };
 
 	
 

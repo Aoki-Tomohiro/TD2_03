@@ -17,6 +17,17 @@ void GamePlayScene::Finalize() {
 void GamePlayScene::Update() {
 
 	playerManager_->Update();
+
+	//カメラの追従処理
+	if (playerManager_->GetPlayerPosition().x > -12.0f && playerManager_->GetPlayerPosition().x <= 12.0f) {
+		camera_.translation_.x = 0.0f;
+	}
+	else if (playerManager_->GetPlayerPosition().x > 12.0f && playerManager_->GetPlayerPosition().x <= 36.0f) {
+		camera_.translation_.x = 24.0f;
+	}
+	else if (playerManager_->GetPlayerPosition().x > 36.0f && playerManager_->GetPlayerPosition().x <= 60.0f) {
+		camera_.translation_.x = 48.0f;
+	}
 	camera_.UpdateMatrix();
 
 	if (input_->IsControllerConnected())
