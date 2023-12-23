@@ -19,7 +19,7 @@ void Puzzle::Initialize(Model* model, const Vector3& position)
 
 void Puzzle::Update() {
 	
-	if (isHit_ == true && input_->IsPushKey(DIK_SPACE))
+	if (isHit_ == true && input_->IsPushKeyEnter(DIK_SPACE))
 	{
 		model_->GetMaterial()->SetColor({ 1.0f,0.0f,0.0f,1.0f });
 		isSelect_ = true;
