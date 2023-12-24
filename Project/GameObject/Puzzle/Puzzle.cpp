@@ -12,6 +12,8 @@ void Puzzle::Initialize(Model* model, const Vector3& position)
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
 
+	isHit_ = false;
+
 	SetCollisionAttribute(kCollisionAttributeEnemy);
 	SetCollisionMask(kCollisionMaskEnemy);
 	SetCollisionPrimitive(kCollisionPrimitiveAABB);
@@ -27,8 +29,6 @@ void Puzzle::Update() {
 
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrixFromEuler();
-
-	isHit_ = false;
 }
 
 void Puzzle::Draw(const Camera& camera) {

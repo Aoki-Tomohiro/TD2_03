@@ -83,8 +83,10 @@ void GamePuzzleScene::Update() {
 	camera_.UpdateMatrix();
 
 
-	ImGui::Begin("Title");
+	ImGui::Begin("Puzzle");
 	ImGui::Text("GamePlayScene : A Button or PKey");
+	ImGui::Text("WASD : Move");
+	ImGui::Text("SPACE : Slect");
 	ImGui::End();
 }
 
