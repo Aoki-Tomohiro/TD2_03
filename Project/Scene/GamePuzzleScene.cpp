@@ -64,7 +64,7 @@ void GamePuzzleScene::Update() {
 		sceneManager_->ChangeScene("GamePlayScene");
 	}
 
-	if (puzzle_[0]->GetIsSelect() == true && puzzle_[4]->GetIsSelect() == true && puzzle_[8]->GetIsSelect() == true)
+	if (puzzle_[2]->GetIsSelect() == true && puzzle_[4]->GetIsSelect() == true && puzzle_[6]->GetIsSelect() == true)
 	{
 		GamePuzzleScene::form = 1;
 		ImGui::Begin("Clear");

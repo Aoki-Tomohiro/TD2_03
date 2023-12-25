@@ -1,6 +1,10 @@
 #pragma once
 #include "Engine/Framework/Scene/IScene.h"
+#include "Engine/Framework/Object/GameObjectManager.h"
+#include "Engine/Base/Renderer.h"
 #include "Engine/Components/Input.h"
+
+#include "Project/GameObject/StageObject/StageObject.h"
 
 class GamePlayScene : public IScene {
 public:
@@ -30,7 +34,15 @@ public:
 	void DrawUI() override;
 
 private:
+	//レンダラー
+	Renderer* renderer_ = nullptr;
+
 	//インプット
 	Input* input_ = nullptr;
+
+	Camera camera_;
+
+	std::unique_ptr<Model> stageObjectModel_;
+	std::unique_ptr<StageObject> stageObject_[3];
 };
 
