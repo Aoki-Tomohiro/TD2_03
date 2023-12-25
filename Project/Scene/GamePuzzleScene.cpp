@@ -1,6 +1,8 @@
 #include "GamePuzzleScene.h"
 #include "Engine/Framework/Scene/SceneManager.h"
 
+int GamePuzzleScene::form = 0;
+
 void GamePuzzleScene::Initialize() {
 	//レンダラーのインスタンスを取得
 	renderer_ = Renderer::GetInstance();
@@ -64,6 +66,7 @@ void GamePuzzleScene::Update() {
 
 	if (puzzle_[0]->GetIsSelect() == true && puzzle_[4]->GetIsSelect() == true && puzzle_[8]->GetIsSelect() == true)
 	{
+		GamePuzzleScene::form = 1;
 		ImGui::Begin("Clear");
 
 		ImGui::End();

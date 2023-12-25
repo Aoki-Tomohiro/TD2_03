@@ -10,6 +10,8 @@
 
 class GamePuzzleScene : public IScene {
 public:
+	static int form;
+
 	/// <summary>
 	/// 初期化
 	/// </summary>

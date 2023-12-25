@@ -1,5 +1,6 @@
 #include "GamePlayScene.h"
 #include "Engine/Framework/Scene/SceneManager.h"
+#include "GamePuzzleScene.h"
 
 void GamePlayScene::Initialize() {
 	//インプットのインスタンスを取得
@@ -38,6 +39,13 @@ void GamePlayScene::Update() {
 	if (input_->IsPushKeyEnter(DIK_RETURN))
 	{
 		sceneManager_->ChangeScene("GameOverScene");
+	}
+
+	if (GamePuzzleScene::form == 1)
+	{
+		ImGui::Begin("form");
+		
+		ImGui::End();
 	}
 
 	ImGui::Begin("Play");
