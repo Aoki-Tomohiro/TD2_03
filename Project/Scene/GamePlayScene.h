@@ -48,9 +48,6 @@ private:
 	//レンダラー
 	Renderer* renderer_ = nullptr;
 
-	//インプット
-	Input* input_ = nullptr;
-
 	std::unique_ptr<Model> stageObjectModel_;
 	std::unique_ptr<StageObject> stageObject_[3];
 };
