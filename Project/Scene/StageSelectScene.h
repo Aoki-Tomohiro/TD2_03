@@ -1,17 +1,11 @@
 #pragma once
 #include "Engine/Framework/Scene/IScene.h"
-#include "Engine/Framework/Object/GameObjectManager.h"
 #include "Engine/Base/Renderer.h"
 #include "Engine/Components/Input.h"
-#include "Project/Player/PlayerManager.h"
+#include "Engine/2D/Sprite.h"
 
-#include "Project/GameObject/StageObject/StageObject.h"
-
-class GamePlayScene : public IScene {
+class StageSelectScene : public IScene {
 public:
-	//ステージの番号
-	static int stageNum;
-
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -38,20 +32,31 @@ public:
 	void DrawUI() override;
 
 private:
-	Camera camera_;
 	//インプット
 	Input* input_ = nullptr;
 
-	//プレイヤー
-	std::unique_ptr<PlayerManager> playerManager_ = nullptr;
-	std::unique_ptr<Player> player_ = nullptr;
 	//レンダラー
 	Renderer* renderer_ = nullptr;
+	
+	//テクスチャハンドル
+	uint32_t textureHandle_ = 0;
 
-	//インプット
-	Input* input_ = nullptr;
+	//スプライト
+	struct Stage {
+		std::unique_ptr<Sprite> sprite = nullptr;
+		uint32_t num = 0;
+	};
+	std::array<Stage, 8> stages_{};
 
-	std::unique_ptr<Model> stageObjectModel_;
-	std::unique_ptr<StageObject> stageObject_[3];
+	//カーソルのスプライト
+	uint32_t cursorTextureHandle_ = 0;
+	std::unique_ptr<Sprite> cursorSprite_ = nullptr;
+
+	//カーソルの座標
+	Vector2 cursorPosition_{ 256.0f,212.0f };
+
+	//カーソルの移動のフラグ
+	bool isCursorMovementEnabled_ = true;
+	uint32_t cursorMovementEnableTimer_ = 0;
 };
 

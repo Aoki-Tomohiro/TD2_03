@@ -325,6 +325,19 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Project\Player\Player.cpp">
+    <ClCompile Include="Project\Scene\StageSelectScene.cpp">
+      <Filter>ソース ファイル\Project\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Scene\GamePuzzleScene.cpp">
+      <Filter>ソース ファイル\Project\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameObject\Puzzle\Puzzle.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameObject\Puzzle\PuzzlePlayer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameObject\StageObject\StageObject.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -531,6 +544,21 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Project\Player\Player.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Scene\StageSelectScene.h">
+      <Filter>ヘッダー ファイル\Project\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Scene\GamePuzzleScene.h">
+      <Filter>ヘッダー ファイル\Project\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameObject\Puzzle\Puzzle.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameObject\Puzzle\PuzzlePlayer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameObject\StageObject\StageObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
