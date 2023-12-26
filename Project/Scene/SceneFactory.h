@@ -3,6 +3,7 @@
 #include "Project/Scene/GameTitleScene.h"
 #include "Project/Scene/StageSelectScene.h"
 #include "Project/Scene/GamePlayScene.h"
+#include "Project/Scene/GamePuzzleScene.h"
 #include "Project/Scene/GameClearScene.h"
 #include "Project/Scene/GameOverScene.h"
 

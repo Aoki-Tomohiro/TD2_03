@@ -1,13 +1,17 @@
-#pragma once
 #include "Engine/Framework/Scene/IScene.h"
 #include "Engine/Framework/Object/GameObjectManager.h"
 #include "Engine/Base/Renderer.h"
 #include "Engine/Components/Input.h"
+#include "Engine/3D/Camera/Camera.h"
+#include "Engine/Components/CollisionManager/CollisionManager.h"
 
-#include "Project/GameObject/StageObject/StageObject.h"
+#include "Project/GameObject/Puzzle/Puzzle.h"
+#include "Project/GameObject/Puzzle/PuzzlePlayer.h"
 
-class GamePlayScene : public IScene {
+class GamePuzzleScene : public IScene {
 public:
+	static int form;
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -37,12 +41,18 @@ private:
 	//レンダラー
 	Renderer* renderer_ = nullptr;
 
+	//衝突マネージャー
+	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
+
 	//インプット
 	Input* input_ = nullptr;
 
 	Camera camera_;
 
-	std::unique_ptr<Model> stageObjectModel_;
-	std::unique_ptr<StageObject> stageObject_[3];
+	std::unique_ptr<Model> puzzleModel_[9];
+	std::unique_ptr<Puzzle> puzzle_[9];
+
+	std::unique_ptr<Model> puzzlePlayerModel_;
+	std::unique_ptr<PuzzlePlayer> puzzlePlayer_;
 };
 
