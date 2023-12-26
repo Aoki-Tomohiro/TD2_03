@@ -213,6 +213,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Project\GameObject\Puzzle\PuzzlePlayer.cpp" />
     <ClCompile Include="Project\GameObject\StageObject\StageObject.cpp" />
     <ClCompile Include="Project\Game\GameManager.cpp" />
+    <ClCompile Include="Project\Player\Player.cpp" />
+    <ClCompile Include="Project\Player\PlayerManager.cpp" />
     <ClCompile Include="Project\Scene\GameClearScene.cpp" />
     <ClCompile Include="Project\Scene\GameOverScene.cpp" />
     <ClCompile Include="Project\Scene\GamePlayScene.cpp" />
@@ -286,6 +288,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Project\GameObject\Puzzle\PuzzlePlayer.h" />
     <ClInclude Include="Project\GameObject\StageObject\StageObject.h" />
     <ClInclude Include="Project\Game\GameManager.h" />
+    <ClInclude Include="Project\Player\Player.h" />
+    <ClInclude Include="Project\Player\PlayerManager.h" />
     <ClInclude Include="Project\Scene\GameClearScene.h" />
     <ClInclude Include="Project\Scene\GameOverScene.h" />
     <ClInclude Include="Project\Scene\GamePlayScene.h" />

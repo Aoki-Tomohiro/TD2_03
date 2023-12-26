@@ -3,6 +3,7 @@
 #include "Engine/Framework/Object/GameObjectManager.h"
 #include "Engine/Base/Renderer.h"
 #include "Engine/Components/Input.h"
+#include "Project/Player/PlayerManager.h"
 
 #include "Project/GameObject/StageObject/StageObject.h"
 
@@ -37,13 +38,18 @@ public:
 	void DrawUI() override;
 
 private:
+	Camera camera_;
+	//インプット
+	Input* input_ = nullptr;
+
+	//プレイヤー
+	std::unique_ptr<PlayerManager> playerManager_ = nullptr;
+	std::unique_ptr<Player> player_ = nullptr;
 	//レンダラー
 	Renderer* renderer_ = nullptr;
 
 	//インプット
 	Input* input_ = nullptr;
-
-	Camera camera_;
 
 	std::unique_ptr<Model> stageObjectModel_;
 	std::unique_ptr<StageObject> stageObject_[3];

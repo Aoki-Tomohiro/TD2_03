@@ -10,8 +10,10 @@ void GamePlayScene::Initialize() {
 
 	//インプットのインスタンスを取得
 	input_ = Input::GetInstance();
-
 	camera_.Initialize();
+	camera_.translation_.z = -30.0f;
+	playerManager_ = std::make_unique<PlayerManager>();
+	playerManager_->Initialize();
 
 	stageObjectModel_.reset(Model::CreateFromOBJ("Project/Resources/Models/Tile", "Tile.obj", renderer_->Opaque));
 
@@ -35,6 +37,20 @@ void GamePlayScene::Update() {
 	{
 		stageObject_[i]->Update();
 	}
+
+	playerManager_->Update();
+
+	//カメラの追従処理
+	if (playerManager_->GetPlayerPosition().x > -12.0f && playerManager_->GetPlayerPosition().x <= 12.0f) {
+		camera_.translation_.x = 0.0f;
+	}
+	else if (playerManager_->GetPlayerPosition().x > 12.0f && playerManager_->GetPlayerPosition().x <= 36.0f) {
+		camera_.translation_.x = 24.0f;
+	}
+	else if (playerManager_->GetPlayerPosition().x > 36.0f && playerManager_->GetPlayerPosition().x <= 60.0f) {
+		camera_.translation_.x = 48.0f;
+	}
+	camera_.UpdateMatrix();
 
 	if (input_->IsControllerConnected())
 	{
@@ -87,6 +103,9 @@ void GamePlayScene::Draw() {
 	//モデルの描画
 	renderer_->Render();
 
+	playerManager_->Draw(camera_);
+	Renderer::GetInstance()->Render();
+	
 #pragma endregion
 
 #pragma region パーティクルの描画処理
