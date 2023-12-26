@@ -1,5 +1,6 @@
 #include "GamePlayScene.h"
 #include "Engine/Framework/Scene/SceneManager.h"
+#include "Project/Game/GameManager.h"
 #include "GamePuzzleScene.h"
 
 void GamePlayScene::Initialize() {
@@ -68,6 +69,7 @@ void GamePlayScene::Update() {
 	ImGui::Text("GamePuzzleScene :  PKey");
 	ImGui::Text("GameClearScene : A Button or SPACE");
 	ImGui::Text("GameOverScene : B Button or ENTER");
+	ImGui::Text("StageNumber : %d", GameManager::stageNum);
 	ImGui::End();
 }
 

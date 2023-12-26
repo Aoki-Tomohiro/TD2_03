@@ -1,5 +1,7 @@
 #include "GameManager.h"
 
+int GameManager::stageNum = 0;
+
 void GameManager::Initialize() {
 	//基底クラスの初期化
 	EngineCore::Initialize();

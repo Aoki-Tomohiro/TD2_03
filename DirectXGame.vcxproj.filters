@@ -321,6 +321,9 @@
     <ClCompile Include="Engine\Framework\Object\IGameObject.cpp">
       <Filter>ソース ファイル\Engine\Framework\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Scene\StageSelectScene.cpp">
+      <Filter>ソース ファイル\Project\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="Project\Scene\GamePuzzleScene.cpp">
       <Filter>ソース ファイル\Project\Scene</Filter>
     </ClCompile>
@@ -532,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Framework\Object\GameObjectManager.h">
       <Filter>ヘッダー ファイル\Engine\Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Scene\StageSelectScene.h">
+      <Filter>ヘッダー ファイル\Project\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Project\Scene\GamePuzzleScene.h">
       <Filter>ヘッダー ファイル\Project\Scene</Filter>
