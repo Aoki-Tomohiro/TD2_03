@@ -1,7 +1,8 @@
 #include "GamePlayScene.h"
 #include "Engine/Framework/Scene/SceneManager.h"
-#include "Project/Game/GameManager.h"
 #include "GamePuzzleScene.h"
+
+int GamePlayScene::stageNum = 0;
 
 void GamePlayScene::Initialize() {
 	//レンダラーのインスタンスを取得
@@ -69,7 +70,6 @@ void GamePlayScene::Update() {
 	ImGui::Text("GamePuzzleScene :  PKey");
 	ImGui::Text("GameClearScene : A Button or SPACE");
 	ImGui::Text("GameOverScene : B Button or ENTER");
-	ImGui::Text("StageNumber : %d", GameManager::stageNum);
 	ImGui::End();
 }
 

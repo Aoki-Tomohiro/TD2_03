@@ -8,6 +8,9 @@
 
 class GamePlayScene : public IScene {
 public:
+	//ステージの番号
+	static int stageNum;
+
 	/// <summary>
 	/// 初期化
 	/// </summary>

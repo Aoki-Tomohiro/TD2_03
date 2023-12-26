@@ -1,7 +1,7 @@
 #include "StageSelectScene.h"
 #include "Engine/Framework/Scene/SceneManager.h"
 #include "Engine/Base/TextureManager.h"
-#include "Project/Game/GameManager.h"
+#include "Project/Scene/GamePlayScene.h"
 
 void StageSelectScene::Initialize() {
 	//レンダラーのインスタンスを取得
@@ -85,7 +85,7 @@ void StageSelectScene::Update() {
 		if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_A)) {
 			for (Stage& stage : stages_) {
 				if (cursorPosition_.x == stage.sprite->GetPosition().x && cursorPosition_.y == stage.sprite->GetPosition().y) {
-					GameManager::stageNum = stage.num;
+					GamePlayScene::stageNum = stage.num;
 					sceneManager_->ChangeScene("GamePlayScene");
 				}
 			}
