@@ -54,15 +54,15 @@ void GamePlayScene::Update() {
 
 	if (input_->IsControllerConnected())
 	{
-		if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_A))
+		/*if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_A))
 		{
 			sceneManager_->ChangeScene("GameClearScene");
-		}
+		}*/
 
-		if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_B) || input_->IsPushKeyEnter(DIK_RETURN))
+		/*if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_B) || input_->IsPushKeyEnter(DIK_RETURN))
 		{
 			sceneManager_->ChangeScene("GameOverScene");
-		}
+		}*/
 	}
 
 	if (input_->IsPushKeyEnter(DIK_P))
