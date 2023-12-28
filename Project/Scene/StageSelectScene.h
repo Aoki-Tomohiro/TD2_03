@@ -2,6 +2,7 @@
 #include "Engine/Framework/Scene/IScene.h"
 #include "Engine/Base/Renderer.h"
 #include "Engine/Components/Input.h"
+#include "Engine/Components/Audio.h"
 #include "Engine/2D/Sprite.h"
 
 class StageSelectScene : public IScene {
@@ -35,11 +36,17 @@ private:
 	//インプット
 	Input* input_ = nullptr;
 
+	//オーディオ
+	Audio* audio_ = nullptr;
+
 	//レンダラー
 	Renderer* renderer_ = nullptr;
 	
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+
+	//サウンドハンドル
+	uint32_t soundHandle_ = 0u;
 
 	//スプライト
 	struct Stage {

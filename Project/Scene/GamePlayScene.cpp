@@ -10,6 +10,10 @@ void GamePlayScene::Initialize() {
 
 	//インプットのインスタンスを取得
 	input_ = Input::GetInstance();
+
+	//Audioのインスタンスを取得
+	audio_ = Audio::GetInstance();
+
 	camera_.Initialize();
 	camera_.translation_.z = -30.0f;
 	playerManager_ = std::make_unique<PlayerManager>();
@@ -25,6 +29,8 @@ void GamePlayScene::Initialize() {
 	stageObject_[0]->Initialize(stageObjectModel_.get(), { -3.0f,-3.0f,0.0f });
 	stageObject_[1]->Initialize(stageObjectModel_.get(), { 0.0f,0.0f,0.0f });
 	stageObject_[2]->Initialize(stageObjectModel_.get(), { 3.0f,3.0f,0.0f });
+
+	soundHandle_ = audio_->SoundLoadWave("Project/Resources/Sounds/select.wav");
 }
 
 void GamePlayScene::Finalize() {
@@ -67,6 +73,7 @@ void GamePlayScene::Update() {
 
 	if (input_->IsPushKeyEnter(DIK_P))
 	{
+		audio_->SoundPlayWave(soundHandle_, false, 1.0f);
 		sceneManager_->ChangeScene("GamePuzzleScene");
 	}
 

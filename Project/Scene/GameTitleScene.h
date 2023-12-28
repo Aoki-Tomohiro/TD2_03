@@ -3,6 +3,7 @@
 #include "Engine/Framework/Object/GameObjectManager.h"
 #include "Engine/Base/Renderer.h"
 #include "Engine/Components/Input.h"
+#include "Engine/Components/Audio.h"
 
 class GameTitleScene : public IScene {
 public:
@@ -37,5 +38,11 @@ private:
 
 	//インプット
 	Input* input_ = nullptr;
+
+	//オーディオ
+	Audio* audio_ = nullptr;
+
+	//サウンドハンドル
+	uint32_t soundHandle_[2] = {};
 };
 

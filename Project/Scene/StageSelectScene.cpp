@@ -10,6 +10,9 @@ void StageSelectScene::Initialize() {
 	//インプットのインスタンスを取得
 	input_ = Input::GetInstance();
 
+	//Audioのインスタンスを取得
+	audio_ = Audio::GetInstance();
+
 	//スプライトの生成
 	for (uint32_t i = 0; i < stages_.size(); i++) {
 		stages_[i].sprite.reset(Sprite::Create(textureHandle_, { 0.0f,0.0f }));
@@ -30,6 +33,8 @@ void StageSelectScene::Initialize() {
 	cursorTextureHandle_ = TextureManager::Load("Project/Resources/Images/Cursor.png");
 	cursorSprite_.reset(Sprite::Create(cursorTextureHandle_, cursorPosition_));
 	cursorSprite_->SetAnchorPoint({ 0.5f,0.5f });
+
+	soundHandle_ = audio_->SoundLoadWave("Project/Resources/Sounds/select.wav");
 }
 
 void StageSelectScene::Finalize() {
@@ -86,6 +91,7 @@ void StageSelectScene::Update() {
 			for (Stage& stage : stages_) {
 				if (cursorPosition_.x == stage.sprite->GetPosition().x && cursorPosition_.y == stage.sprite->GetPosition().y) {
 					GamePlayScene::stageNum = stage.num;
+					audio_->SoundPlayWave(soundHandle_, false, 1.0f);
 					sceneManager_->ChangeScene("GamePlayScene");
 				}
 			}

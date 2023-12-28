@@ -3,6 +3,7 @@
 #include "Engine/Framework/Object/GameObjectManager.h"
 #include "Engine/Base/Renderer.h"
 #include "Engine/Components/Input.h"
+#include "Engine/Components/Audio.h"
 #include "Project/Player/PlayerManager.h"
 
 #include "Project/GameObject/StageObject/StageObject.h"
@@ -39,8 +40,12 @@ public:
 
 private:
 	Camera camera_;
+	
 	//インプット
 	Input* input_ = nullptr;
+
+	//オーディオ
+	Audio* audio_ = nullptr;
 
 	//プレイヤー
 	std::unique_ptr<PlayerManager> playerManager_ = nullptr;
@@ -50,5 +55,8 @@ private:
 
 	std::unique_ptr<Model> stageObjectModel_;
 	std::unique_ptr<StageObject> stageObject_[3];
+
+	//サウンドハンドル
+	uint32_t soundHandle_ = 0u;
 };
 
