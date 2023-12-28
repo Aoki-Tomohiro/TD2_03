@@ -1,5 +1,6 @@
 #include "GameTitleScene.h"
 #include "Engine/Framework/Scene/SceneManager.h"
+#include "GamePuzzleScene.h"
 
 void GameTitleScene::Initialize() {
 	//レンダラーのインスタンスを取得
@@ -7,6 +8,9 @@ void GameTitleScene::Initialize() {
 
 	//インプットのインスタンスを取得
 	input_ = Input::GetInstance();
+
+
+	GamePuzzleScene::form = 0;
 
 }
 
