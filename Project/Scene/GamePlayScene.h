@@ -5,6 +5,7 @@
 #include "Engine/Components/Input.h"
 #include "Engine/Components/Audio.h"
 #include "Project/Player/PlayerManager.h"
+#include "Engine/Components/CollisionManager/CollisionManager.h"
 
 #include "Project/GameObject/StageObject/StageObject.h"
 #include "Project/GameObject/Goal/Goal.h"
@@ -42,6 +43,9 @@ public:
 
 private:
 	Camera camera_;
+
+	//衝突マネージャー
+	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
 	
 	//インプット
 	Input* input_ = nullptr;

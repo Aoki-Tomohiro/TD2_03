@@ -54,6 +54,12 @@ private:
 	Model* model_ = nullptr;
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_{};
+
+	Vector4 color_ = { 1.0f,1.0f,1.0f,1.0f };
+
+	bool isHit_ = false;
+
+	bool isSelect_ = false;
 };
 
 

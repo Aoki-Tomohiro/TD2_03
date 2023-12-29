@@ -29,7 +29,14 @@ void PuzzleScenePortal::Draw(const Camera& camera) {
 }
 
 void PuzzleScenePortal::OnCollision(Collider* collider) {
+	if (collider->GetCollisionAttribute() & kCollisionAttributePlayer)
+	{
+		isHit_ = true;
+	}
 
+	ImGui::Begin("HIT");
+	ImGui::Text("%d", isHit_);
+	ImGui::End();
 }
 
 Vector3 PuzzleScenePortal::GetWorldPosition() {

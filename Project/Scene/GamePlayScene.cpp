@@ -8,6 +8,9 @@ void GamePlayScene::Initialize() {
 	//レンダラーのインスタンスを取得
 	renderer_ = Renderer::GetInstance();
 
+	//衝突マネージャーの作成
+	collisionManager_ = std::make_unique<CollisionManager>();
+
 	//インプットのインスタンスを取得
 	input_ = Input::GetInstance();
 
@@ -113,6 +116,14 @@ void GamePlayScene::Update() {
 	{
 		sceneManager_->ChangeScene("GameOverScene");
 	}
+
+	//衝突判定
+	collisionManager_->ClearColliderList();
+	/*collisionManager_->SetColliderList(player_.get());*/
+
+	collisionManager_->SetColliderList(puzzleScenePortal_.get());
+
+	collisionManager_->CheckAllCollisions();
 
 	camera_.UpdateMatrix();
 
