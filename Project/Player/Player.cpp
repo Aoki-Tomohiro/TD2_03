@@ -1,10 +1,23 @@
 #include "Player.h"
 #include "Engine/Components/CollisionManager/CollisionConfig.h"
+#include "Project/Scene/GamePuzzleScene.h"
 #include <numbers>
 
 void Player::Initialize() {
 	input_ = Input::GetInstance();
 	worldTransformBase_.Initialize();
+
+	if (GamePuzzleScene::form == 0)
+	{
+		worldTransformBase_.translation_.x = -7.0f;
+		worldTransformBase_.translation_.y = -3.8f;
+	}
+
+	if (GamePuzzleScene::form == 1 || GamePuzzleScene::form == 2)
+	{
+		worldTransformBase_.translation_.x = 17.0f;
+		worldTransformBase_.translation_.y = -3.8f;
+	}
 
 };
 void Player::Update() {
@@ -55,7 +68,7 @@ void Player::Update() {
 
 //移動
 void Player::MoveInitialize() {
-	worldTransformBase_.translation_.y = 0.0f;
+	worldTransformBase_.translation_.y = -3.8f;
 };
 void Player::MoveUpdata() {
 	if (input_->IsControllerConnected())
@@ -160,7 +173,7 @@ void Player::MoveUpdata() {
 
 //ジャンプ
 void Player::JumpInitialize() {
-	worldTransformBase_.translation_.y = 0.0f;
+	worldTransformBase_.translation_.y = -3.8f;
 	// ジャンプ初速
 	const float kJumpFirstSpeed = 0.6f;
 	velocity_.y = kJumpFirstSpeed;
@@ -175,7 +188,7 @@ void Player::JumpUpdata() {
 	// 加速
 	velocity_ += accelerationVector;
 
-	if (worldTransformBase_.translation_.y <= 0.0f) {
+	if (worldTransformBase_.translation_.y <= -3.8f) {
 		// ジャンプ終了
 		behaviorRequest_ = Behavior::kRoot;
 	}

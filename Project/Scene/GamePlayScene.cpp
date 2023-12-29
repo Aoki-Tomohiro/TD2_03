@@ -21,14 +21,19 @@ void GamePlayScene::Initialize() {
 
 	stageObjectModel_.reset(Model::CreateFromOBJ("Project/Resources/Models/Tile", "Tile.obj", renderer_->Opaque));
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		stageObject_[i] = std::make_unique<StageObject>();
 	}
 
-	stageObject_[0]->Initialize(stageObjectModel_.get(), { -3.0f,-3.0f,0.0f });
-	stageObject_[1]->Initialize(stageObjectModel_.get(), { 0.0f,0.0f,0.0f });
-	stageObject_[2]->Initialize(stageObjectModel_.get(), { 3.0f,3.0f,0.0f });
+	stageObject_[0]->Initialize(stageObjectModel_.get(), { 20.0f,-3.0f,0.0f });
+	stageObject_[0]->SetScale({ 0.8f,0.8f,1.0f });
+	stageObject_[1]->Initialize(stageObjectModel_.get(), { 23.0f,0.0f,0.0f });
+	stageObject_[1]->SetScale({ 0.8f,0.8f,1.0f });
+	stageObject_[2]->Initialize(stageObjectModel_.get(), { 26.0f,3.0f,0.0f });
+	stageObject_[2]->SetScale({ 0.8f,0.8f,1.0f });
+	stageObject_[3]->Initialize(stageObjectModel_.get(), { 32.0f,3.0f,0.0f });
+	stageObject_[3]->SetScale({ 3.0f,0.8f,1.0f });
 
 	soundHandle_ = audio_->SoundLoadWave("Project/Resources/Sounds/select.wav");
 }
@@ -39,7 +44,7 @@ void GamePlayScene::Finalize() {
 
 void GamePlayScene::Update() {
 	
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		stageObject_[i]->Update();
 	}
@@ -99,13 +104,15 @@ void GamePlayScene::Update() {
 void GamePlayScene::Draw() {
 #pragma region モデルの描画処理
 
-	if (GamePuzzleScene::form == 1)
+	if (GamePuzzleScene::form == 2)
 	{
 		for (int i = 0; i < 3; i++)
 		{
 			stageObject_[i]->Draw(camera_);
 		}
 	}
+
+	stageObject_[3]->Draw(camera_);
 
 	//モデルの描画
 	renderer_->Render();

@@ -44,6 +44,8 @@ public:
 	/// <returns></returns>
 	WorldTransform& GetWorldTransform() override { return worldTransform_; };
 
+	void SetScale(const Vector3& scale) { worldTransform_.scale_ = scale; };
+
 private:
 	Input* input_ = nullptr;
 

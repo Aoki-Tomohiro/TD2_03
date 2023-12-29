@@ -46,6 +46,8 @@ void GamePuzzleScene::Update() {
 
 	puzzlePlayer_->Update();
 
+	GamePuzzleScene::form = 1;
+
 	for (int i = 0; i < 9; i++)
 	{
 		puzzle_[i]->Update();
@@ -66,7 +68,7 @@ void GamePuzzleScene::Update() {
 
 	if (puzzle_[2]->GetIsSelect() == true && puzzle_[4]->GetIsSelect() == true && puzzle_[6]->GetIsSelect() == true)
 	{
-		GamePuzzleScene::form = 1;
+		GamePuzzleScene::form = 2;
 		ImGui::Begin("Clear");
 
 		ImGui::End();

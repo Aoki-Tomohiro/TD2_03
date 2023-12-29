@@ -54,7 +54,7 @@ private:
 	Renderer* renderer_ = nullptr;
 
 	std::unique_ptr<Model> stageObjectModel_;
-	std::unique_ptr<StageObject> stageObject_[3];
+	std::unique_ptr<StageObject> stageObject_[4];
 
 	//サウンドハンドル
 	uint32_t soundHandle_ = 0u;
