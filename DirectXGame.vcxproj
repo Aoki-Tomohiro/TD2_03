@@ -212,6 +212,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Project\GameObject\Goal\Goal.cpp" />
     <ClCompile Include="Project\GameObject\Puzzle\Puzzle.cpp" />
     <ClCompile Include="Project\GameObject\Puzzle\PuzzlePlayer.cpp" />
+    <ClCompile Include="Project\GameObject\Puzzle\PuzzleScenePortal.cpp" />
     <ClCompile Include="Project\GameObject\StageObject\StageObject.cpp" />
     <ClCompile Include="Project\Game\GameManager.cpp" />
     <ClCompile Include="Project\Player\Player.cpp" />
@@ -288,6 +289,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Project\GameObject\Goal\Goal.h" />
     <ClInclude Include="Project\GameObject\Puzzle\Puzzle.h" />
     <ClInclude Include="Project\GameObject\Puzzle\PuzzlePlayer.h" />
+    <ClInclude Include="Project\GameObject\Puzzle\PuzzleScenePortal.h" />
     <ClInclude Include="Project\GameObject\StageObject\StageObject.h" />
     <ClInclude Include="Project\Game\GameManager.h" />
     <ClInclude Include="Project\Player\Player.h" />

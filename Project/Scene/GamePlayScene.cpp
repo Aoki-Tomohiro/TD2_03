@@ -20,6 +20,7 @@ void GamePlayScene::Initialize() {
 	playerManager_ = std::make_unique<PlayerManager>();
 	playerManager_->Initialize();
 
+	//StageObject
 	stageObjectModel_.reset(Model::CreateFromOBJ("Project/Resources/Models/Tile", "Tile.obj", renderer_->Opaque));
 
 	for (int i = 0; i < 4; i++)
@@ -27,20 +28,29 @@ void GamePlayScene::Initialize() {
 		stageObject_[i] = std::make_unique<StageObject>();
 	}
 
-	stageObject_[0]->Initialize(stageObjectModel_.get(), { 20.0f,-3.0f,0.0f });
+	stageObject_[0]->Initialize(stageObjectModel_.get(), { 20.0f,-2.7f,0.0f });
 	stageObject_[0]->SetScale({ 0.8f,0.8f,0.8f });
-	stageObject_[1]->Initialize(stageObjectModel_.get(), { 23.0f,0.0f,0.0f });
+	stageObject_[1]->Initialize(stageObjectModel_.get(), { 23.0f,0.3f,0.0f });
 	stageObject_[1]->SetScale({ 0.8f,0.8f,0.8f });
-	stageObject_[2]->Initialize(stageObjectModel_.get(), { 26.0f,3.0f,0.0f });
+	stageObject_[2]->Initialize(stageObjectModel_.get(), { 26.0f,3.3f,0.0f });
 	stageObject_[2]->SetScale({ 0.8f,0.8f,0.8f });
-	stageObject_[3]->Initialize(stageObjectModel_.get(), { 32.0f,3.0f,0.0f });
+	stageObject_[3]->Initialize(stageObjectModel_.get(), { 32.0f,3.3f,0.0f });
 	stageObject_[3]->SetScale({ 3.0f,0.8f,0.8f });
 
+	//PuzzleScenePortal
+	puzzleScenePortalModel_.reset(Model::CreateFromOBJ("Project/Resources/Models/Tile", "Tile.obj", renderer_->Opaque));
+	puzzleScenePortalModel_->GetMaterial()->SetColor({ 0.0f,0.0f,1.0f,1.0f });
+
+	puzzleScenePortal_ = std::make_unique<PuzzleScenePortal>();
+	puzzleScenePortal_->Initialize(puzzleScenePortalModel_.get(), { 17.0f,-3.0f,0.0f });
+	puzzleScenePortal_->SetScale({ 0.5f,0.5f,0.5f });
+
+	//Goal
 	goalModel_.reset(Model::CreateFromOBJ("Project/Resources/Models/Tile", "Tile.obj", renderer_->Opaque));
 	goalModel_->GetMaterial()->SetColor({ 0.0f,1.0f,0.0f,1.0f });
 
 	goal_ = std::make_unique<Goal>();
-	goal_->Initialize(goalModel_.get(), { 32.0f,5.0f,0.0f });
+	goal_->Initialize(goalModel_.get(), { 32.0f,5.3f,0.0f });
 	goal_->SetScale({ 0.5f,0.5f,0.5f });
 
 	soundHandle_ = audio_->SoundLoadWave("Project/Resources/Sounds/select.wav");
@@ -58,6 +68,8 @@ void GamePlayScene::Update() {
 	}
 
 	playerManager_->Update();
+
+	puzzleScenePortal_->Update();
 
 	goal_->Update();
 
@@ -123,6 +135,8 @@ void GamePlayScene::Draw() {
 	}
 
 	stageObject_[3]->Draw(camera_);
+
+	puzzleScenePortal_->Draw(camera_);
 
 	goal_->Draw(camera_);
 

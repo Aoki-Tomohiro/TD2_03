@@ -8,6 +8,7 @@
 
 #include "Project/GameObject/StageObject/StageObject.h"
 #include "Project/GameObject/Goal/Goal.h"
+#include "Project/GameObject/Puzzle/PuzzleScenePortal.h"
 
 class GamePlayScene : public IScene {
 public:
@@ -56,6 +57,9 @@ private:
 
 	std::unique_ptr<Model> stageObjectModel_;
 	std::unique_ptr<StageObject> stageObject_[4];
+
+	std::unique_ptr<Model> puzzleScenePortalModel_;
+	std::unique_ptr<PuzzleScenePortal> puzzleScenePortal_;
 
 	std::unique_ptr<Model> goalModel_;
 	std::unique_ptr<Goal> goal_;

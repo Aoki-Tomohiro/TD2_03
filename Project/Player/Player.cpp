@@ -10,13 +10,13 @@ void Player::Initialize() {
 	if (GamePuzzleScene::form == 0)
 	{
 		worldTransformBase_.translation_.x = -7.0f;
-		worldTransformBase_.translation_.y = -3.8f;
+		worldTransformBase_.translation_.y = -3.7f;
 	}
 
 	if (GamePuzzleScene::form == 1 || GamePuzzleScene::form == 2)
 	{
-		worldTransformBase_.translation_.x = 17.0f;
-		worldTransformBase_.translation_.y = -3.8f;
+		worldTransformBase_.translation_.x = 15.0f;
+		worldTransformBase_.translation_.y = -3.7f;
 	}
 
 };
@@ -68,7 +68,7 @@ void Player::Update() {
 
 //移動
 void Player::MoveInitialize() {
-	worldTransformBase_.translation_.y = -3.8f;
+	worldTransformBase_.translation_.y = -3.7f;
 };
 void Player::MoveUpdata() {
 	if (input_->IsControllerConnected())
@@ -173,7 +173,7 @@ void Player::MoveUpdata() {
 
 //ジャンプ
 void Player::JumpInitialize() {
-	worldTransformBase_.translation_.y = -3.8f;
+	worldTransformBase_.translation_.y = -3.7f;
 	// ジャンプ初速
 	const float kJumpFirstSpeed = 0.6f;
 	velocity_.y = kJumpFirstSpeed;
@@ -188,7 +188,7 @@ void Player::JumpUpdata() {
 	// 加速
 	velocity_ += accelerationVector;
 
-	if (worldTransformBase_.translation_.y <= -3.8f) {
+	if (worldTransformBase_.translation_.y <= -3.7f) {
 		// ジャンプ終了
 		behaviorRequest_ = Behavior::kRoot;
 	}
