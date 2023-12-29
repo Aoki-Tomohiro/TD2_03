@@ -6,6 +6,7 @@
 #include "Project/Player/PlayerManager.h"
 
 #include "Project/GameObject/StageObject/StageObject.h"
+#include "Engine/Components/CollisionManager/CollisionManager.h"
 
 class GamePlayScene : public IScene {
 public:
@@ -47,6 +48,9 @@ private:
 	std::unique_ptr<Player> player_ = nullptr;
 	//レンダラー
 	Renderer* renderer_ = nullptr;
+
+	//衝突マネージャー
+	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
 
 	std::unique_ptr<Model> stageObjectModel_;
 	std::unique_ptr<StageObject> stageObject_[3];

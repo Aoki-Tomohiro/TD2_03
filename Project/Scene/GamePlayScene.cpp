@@ -25,6 +25,8 @@ void GamePlayScene::Initialize() {
 	stageObject_[0]->Initialize(stageObjectModel_.get(), { -3.0f,-3.0f,0.0f });
 	stageObject_[1]->Initialize(stageObjectModel_.get(), { 0.0f,0.0f,0.0f });
 	stageObject_[2]->Initialize(stageObjectModel_.get(), { 3.0f,3.0f,0.0f });
+
+	collisionManager_ = std::make_unique<CollisionManager>();
 }
 
 void GamePlayScene::Finalize() {
@@ -41,16 +43,28 @@ void GamePlayScene::Update() {
 	playerManager_->Update();
 
 	//カメラの追従処理
-	if (playerManager_->GetPlayerPosition().x > -12.0f && playerManager_->GetPlayerPosition().x <= 12.0f) {
+	Vector3 playerCenterPosition = playerManager_->GetPlayer()->GetWorldTransform().translation_;
+	if (playerCenterPosition.x > -12.0f && playerCenterPosition.x <= 12.0f) {
 		camera_.translation_.x = 0.0f;
 	}
-	else if (playerManager_->GetPlayerPosition().x > 12.0f && playerManager_->GetPlayerPosition().x <= 36.0f) {
+	else if (playerCenterPosition.x > 12.0f && playerCenterPosition.x <= 36.0f) {
 		camera_.translation_.x = 24.0f;
 	}
-	else if (playerManager_->GetPlayerPosition().x > 36.0f && playerManager_->GetPlayerPosition().x <= 60.0f) {
+	else if (playerCenterPosition.x > 36.0f && playerCenterPosition.x <= 60.0f) {
 		camera_.translation_.x = 48.0f;
 	}
 	camera_.UpdateMatrix();
+
+	collisionManager_->ClearColliderList();
+	collisionManager_->SetColliderList(playerManager_->GetPlayer());
+	//if (GamePuzzleScene::form == 1)
+	//{
+		for (int i = 0; i < 3; i++)
+		{
+			collisionManager_->SetColliderList(stageObject_[i].get());
+		}
+	//}
+	collisionManager_->CheckAllCollisions();
 
 	if (input_->IsControllerConnected())
 	{
@@ -92,13 +106,13 @@ void GamePlayScene::Update() {
 void GamePlayScene::Draw() {
 #pragma region モデルの描画処理
 
-	if (GamePuzzleScene::form == 1)
-	{
+	//if (GamePuzzleScene::form == 1)
+	//{
 		for (int i = 0; i < 3; i++)
 		{
 			stageObject_[i]->Draw(camera_);
 		}
-	}
+	//}
 
 	//モデルの描画
 	renderer_->Render();

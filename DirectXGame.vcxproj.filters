@@ -325,8 +325,8 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Project\Player\Player.cpp">
-	  <Filter>ソース ファイル</Filter>
-	</ClCompile>
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="Project\Scene\StageSelectScene.cpp">
       <Filter>ソース ファイル\Project\Scene</Filter>
     </ClCompile>

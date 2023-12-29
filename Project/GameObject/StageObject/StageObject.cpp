@@ -12,8 +12,8 @@ void StageObject::Initialize(Model* model, const Vector3& position)
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
 
-	SetCollisionAttribute(kCollisionAttributePlayer);
-	SetCollisionMask(kCollisionMaskPlayer);
+	SetCollisionAttribute(kCollisionAttributeEnemy);
+	SetCollisionMask(kCollisionMaskEnemy);
 	SetCollisionPrimitive(kCollisionPrimitiveAABB);
 }
 

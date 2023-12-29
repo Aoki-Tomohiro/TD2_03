@@ -5,7 +5,11 @@
 void Player::Initialize() {
 	input_ = Input::GetInstance();
 	worldTransformBase_.Initialize();
-
+	AABB aabbSize{ .min{-0.39f,-0.39f,-0.39f},.max{0.39f,0.39f,0.39f} };
+	SetAABB(aabbSize);
+	SetCollisionPrimitive(kCollisionPrimitiveAABB);
+	SetCollisionAttribute(kCollisionAttributePlayer);
+	SetCollisionMask(kCollisionMaskPlayer);
 };
 void Player::Update() {
 
@@ -200,5 +204,41 @@ Vector3 Player::GetLocalPosition() {
 
 
 void Player::OnCollision(Collider* collider) {
+	AABB aabbA = {
+	.min{worldTransformBase_.translation_.x + GetAABB().min.x,worldTransformBase_.translation_.y + GetAABB().min.y,worldTransformBase_.translation_.z + GetAABB().min.z},
+	.max{worldTransformBase_.translation_.x + GetAABB().max.x,worldTransformBase_.translation_.y + GetAABB().max.y,worldTransformBase_.translation_.z + GetAABB().max.z},
+	};
+	AABB aabbB = {
+		.min{collider->GetWorldTransform().translation_.x + collider->GetAABB().min.x,collider->GetWorldTransform().translation_.y + collider->GetAABB().min.y,collider->GetWorldTransform().translation_.z + collider->GetAABB().min.z},
+		.max{collider->GetWorldTransform().translation_.x + collider->GetAABB().max.x,collider->GetWorldTransform().translation_.y + collider->GetAABB().max.y,collider->GetWorldTransform().translation_.z + collider->GetAABB().max.z},
+	};
 
+	Vector3 overlapAxis = {
+		std::min<float>(aabbA.max.x,aabbB.max.x) - std::max<float>(aabbA.min.x,aabbB.min.x),
+		std::min<float>(aabbA.max.y,aabbB.max.y) - std::max<float>(aabbA.min.y,aabbB.min.y),
+		std::min<float>(aabbA.max.z,aabbB.max.z) - std::max<float>(aabbA.min.z,aabbB.min.z),
+	};
+
+	float overlap = std::min<float>({ overlapAxis.x, overlapAxis.y, overlapAxis.z });
+
+	Vector3 direction{};
+	if (overlapAxis.x < overlapAxis.y && overlapAxis.x < overlapAxis.z) {
+		//X軸方向で最小の重なりが発生している場合
+		direction.x = (worldTransformBase_.translation_.x < collider->GetWorldTransform().translation_.x) ? -1.0f : 1.0f;
+		direction.y = 0.0f;
+	}
+	else if (overlapAxis.y < overlapAxis.x && overlapAxis.y < overlapAxis.z) {
+		//Y軸方向で最小の重なりが発生している場合
+		direction.y = (worldTransformBase_.translation_.y < collider->GetWorldTransform().translation_.y) ? 1.0f : -1.0f;
+		direction.x = 0.0f;
+	}
+	else if (overlapAxis.z < overlapAxis.x && overlapAxis.z < overlapAxis.y) {
+		//Z軸方向で最小の重なりが発生している場合
+		direction.z = (worldTransformBase_.translation_.z < collider->GetWorldTransform().translation_.z) ? -1.0f : 1.0f;
+		direction.x = 0.0f;
+		direction.y = 0.0f;
+	}
+
+	worldTransformBase_.translation_ += Multiply(overlapAxis, direction);
+	worldTransformBase_.UpdateMatrixFromEuler();
 }
