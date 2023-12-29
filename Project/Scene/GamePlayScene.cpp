@@ -16,6 +16,7 @@ void GamePlayScene::Initialize() {
 
 	camera_.Initialize();
 	camera_.translation_.z = -30.0f;
+
 	playerManager_ = std::make_unique<PlayerManager>();
 	playerManager_->Initialize();
 
@@ -27,13 +28,20 @@ void GamePlayScene::Initialize() {
 	}
 
 	stageObject_[0]->Initialize(stageObjectModel_.get(), { 20.0f,-3.0f,0.0f });
-	stageObject_[0]->SetScale({ 0.8f,0.8f,1.0f });
+	stageObject_[0]->SetScale({ 0.8f,0.8f,0.8f });
 	stageObject_[1]->Initialize(stageObjectModel_.get(), { 23.0f,0.0f,0.0f });
-	stageObject_[1]->SetScale({ 0.8f,0.8f,1.0f });
+	stageObject_[1]->SetScale({ 0.8f,0.8f,0.8f });
 	stageObject_[2]->Initialize(stageObjectModel_.get(), { 26.0f,3.0f,0.0f });
-	stageObject_[2]->SetScale({ 0.8f,0.8f,1.0f });
+	stageObject_[2]->SetScale({ 0.8f,0.8f,0.8f });
 	stageObject_[3]->Initialize(stageObjectModel_.get(), { 32.0f,3.0f,0.0f });
-	stageObject_[3]->SetScale({ 3.0f,0.8f,1.0f });
+	stageObject_[3]->SetScale({ 3.0f,0.8f,0.8f });
+
+	goalModel_.reset(Model::CreateFromOBJ("Project/Resources/Models/Tile", "Tile.obj", renderer_->Opaque));
+	goalModel_->GetMaterial()->SetColor({ 0.0f,1.0f,0.0f,1.0f });
+
+	goal_ = std::make_unique<Goal>();
+	goal_->Initialize(goalModel_.get(), { 32.0f,5.0f,0.0f });
+	goal_->SetScale({ 0.5f,0.5f,0.5f });
 
 	soundHandle_ = audio_->SoundLoadWave("Project/Resources/Sounds/select.wav");
 }
@@ -50,6 +58,8 @@ void GamePlayScene::Update() {
 	}
 
 	playerManager_->Update();
+
+	goal_->Update();
 
 	//カメラの追従処理
 	if (playerManager_->GetPlayerPosition().x > -12.0f && playerManager_->GetPlayerPosition().x <= 12.0f) {
@@ -113,6 +123,8 @@ void GamePlayScene::Draw() {
 	}
 
 	stageObject_[3]->Draw(camera_);
+
+	goal_->Draw(camera_);
 
 	//モデルの描画
 	renderer_->Render();

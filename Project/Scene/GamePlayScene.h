@@ -7,6 +7,7 @@
 #include "Project/Player/PlayerManager.h"
 
 #include "Project/GameObject/StageObject/StageObject.h"
+#include "Project/GameObject/Goal/Goal.h"
 
 class GamePlayScene : public IScene {
 public:
@@ -55,6 +56,9 @@ private:
 
 	std::unique_ptr<Model> stageObjectModel_;
 	std::unique_ptr<StageObject> stageObject_[4];
+
+	std::unique_ptr<Model> goalModel_;
+	std::unique_ptr<Goal> goal_;
 
 	//サウンドハンドル
 	uint32_t soundHandle_ = 0u;
