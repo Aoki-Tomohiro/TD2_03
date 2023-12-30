@@ -21,10 +21,16 @@ void GamePlayScene::Initialize() {
 	backSprite_.reset(Sprite::Create(backTextureHandle_, { 0.0f,0.0f }));
 
 	moveTextureHandle_ = TextureManager::Load("Project/Resources/Images/moveL.png");
-	moveSprite_.reset(Sprite::Create(moveTextureHandle_, { 950.0f,520.0f }));
+	moveSprite_.reset(Sprite::Create(moveTextureHandle_, { 890.0f,550.0f }));
+	moveSprite_->SetSize({ 150.0f, 150.0f});
 
 	jumpTextureHandle_ = TextureManager::Load("Project/Resources/Images/jamp.png");
-	jumpSprite_.reset(Sprite::Create(jumpTextureHandle_, { 950.0f,300.0f }));
+	jumpSprite_.reset(Sprite::Create(jumpTextureHandle_, { 1090.0f,580.0f }));
+	jumpSprite_->SetSize({ 150.0f, 150.0f });
+
+	decisionTextureHandle_ = TextureManager::Load("Project/Resources/Images/xbotton.png");
+	decisionSprite_.reset(Sprite::Create(decisionTextureHandle_, { 270.0f,370.0f }));
+	decisionSprite_->SetSize({ 120.0f, 120.0f });
 
 	camera_.Initialize();
 	camera_.translation_.z = -30.0f;
@@ -195,6 +201,11 @@ void GamePlayScene::DrawUI() {
 	moveSprite_->Draw();
 
 	jumpSprite_->Draw();
+
+	if (puzzleScenePortal_->GetIsHit() == true)
+	{
+		decisionSprite_->Draw();
+	}
 
 	renderer_->PostDrawSprites();
 

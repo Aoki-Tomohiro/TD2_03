@@ -90,5 +90,10 @@ private:
 	std::unique_ptr<Sprite> jumpSprite_ = nullptr;
 	//ジャンプUIのテクスチャ
 	uint32_t jumpTextureHandle_ = 0;
+
+	//決定UI用のスプライト
+	std::unique_ptr<Sprite> decisionSprite_ = nullptr;
+	//決定UIのテクスチャ
+	uint32_t decisionTextureHandle_ = 0;
 };
 

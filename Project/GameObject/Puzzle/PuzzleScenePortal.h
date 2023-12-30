@@ -47,6 +47,8 @@ public:
 
 	void SetScale(const Vector3& scale) { worldTransform_.scale_ = scale; };
 
+	bool GetIsHit() { return isHit_; };
+
 private:
 	Input* input_ = nullptr;
 

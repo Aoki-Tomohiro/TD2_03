@@ -21,6 +21,8 @@ void PuzzleScenePortal::Update() {
 
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrixFromEuler();
+
+	isHit_ = false;
 }
 
 void PuzzleScenePortal::Draw(const Camera& camera) {
