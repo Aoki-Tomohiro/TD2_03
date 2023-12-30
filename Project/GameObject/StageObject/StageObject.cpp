@@ -12,8 +12,13 @@ void StageObject::Initialize(Model* model, const Vector3& position)
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
 
-	SetCollisionAttribute(kCollisionAttributePlayer);
-	SetCollisionMask(kCollisionMaskPlayer);
+	AABB aabbSize = {
+		.min{-worldTransform_.scale_.x,-worldTransform_.scale_.y,-worldTransform_.scale_.z},
+		.max{worldTransform_.scale_.x,worldTransform_.scale_.y,worldTransform_.scale_.z},
+	};
+	SetAABB(aabbSize);
+	SetCollisionAttribute(kCollisionAttributeEnemy);
+	SetCollisionMask(kCollisionMaskEnemy);
 	SetCollisionPrimitive(kCollisionPrimitiveAABB);
 }
 

@@ -48,6 +48,6 @@ private:
 
 	// 速度
 	Vector3 velocity_ = {};
+	Vector3 verticalVelocity_{};
 	bool isDead_ = false;
-
 };
