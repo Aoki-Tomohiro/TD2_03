@@ -4,10 +4,14 @@
 //CollisionAttribute
 const uint32_t kCollisionAttributePlayer = 0b00001;
 const uint32_t kCollisionAttributeEnemy = 0b00010;
+const uint32_t kCollisionAttributeGoal = 0b00100;
+const uint32_t kCollisionAttributePuzzleScenePortal = 0b01000;
 
 //CollisionMask
 const uint32_t kCollisionMaskPlayer = 0b11110;
 const uint32_t kCollisionMaskEnemy = 0b11101;
+const uint32_t kCollisionMaskGoal = 0b11011;
+const uint32_t kCollisionMaskPuzzleScenePortal = 0b10111;
 
 //形状
 const uint32_t kCollisionPrimitiveSphere = 0b1;

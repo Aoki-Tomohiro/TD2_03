@@ -8,25 +8,66 @@ void GamePlayScene::Initialize() {
 	//レンダラーのインスタンスを取得
 	renderer_ = Renderer::GetInstance();
 
+	//衝突マネージャーの作成
+	collisionManager_ = std::make_unique<CollisionManager>();
+
 	//インプットのインスタンスを取得
 	input_ = Input::GetInstance();
+
+	//Audioのインスタンスを取得
+	audio_ = Audio::GetInstance();
+
+	backTextureHandle_ = TextureManager::Load("Project/Resources/Images/back.png");
+	backSprite_.reset(Sprite::Create(backTextureHandle_, { 0.0f,0.0f }));
+
+	moveTextureHandle_ = TextureManager::Load("Project/Resources/Images/moveL.png");
+	moveSprite_.reset(Sprite::Create(moveTextureHandle_, { 950.0f,520.0f }));
+
+	jumpTextureHandle_ = TextureManager::Load("Project/Resources/Images/jamp.png");
+	jumpSprite_.reset(Sprite::Create(jumpTextureHandle_, { 950.0f,300.0f }));
+
 	camera_.Initialize();
 	camera_.translation_.z = -30.0f;
+
 	playerManager_ = std::make_unique<PlayerManager>();
 	playerManager_->Initialize();
 
+	//StageObject
 	stageObjectModel_.reset(Model::CreateFromOBJ("Project/Resources/Models/Tile", "Tile.obj", renderer_->Opaque));
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		stageObject_[i] = std::make_unique<StageObject>();
 	}
 
-	stageObject_[0]->Initialize(stageObjectModel_.get(), { -3.0f,-3.0f,0.0f });
-	stageObject_[1]->Initialize(stageObjectModel_.get(), { 0.0f,0.0f,0.0f });
-	stageObject_[2]->Initialize(stageObjectModel_.get(), { 3.0f,3.0f,0.0f });
-
 	collisionManager_ = std::make_unique<CollisionManager>();
+  
+	stageObject_[0]->Initialize(stageObjectModel_.get(), { 20.0f,-2.7f,0.0f });
+	stageObject_[0]->SetScale({ 0.8f,0.8f,0.8f });
+	stageObject_[1]->Initialize(stageObjectModel_.get(), { 23.0f,0.3f,0.0f });
+	stageObject_[1]->SetScale({ 0.8f,0.8f,0.8f });
+	stageObject_[2]->Initialize(stageObjectModel_.get(), { 26.0f,3.3f,0.0f });
+	stageObject_[2]->SetScale({ 0.8f,0.8f,0.8f });
+	stageObject_[3]->Initialize(stageObjectModel_.get(), { 32.0f,3.3f,0.0f });
+	stageObject_[3]->SetScale({ 3.0f,0.8f,0.8f });
+
+	//PuzzleScenePortal
+	puzzleScenePortalModel_.reset(Model::CreateFromOBJ("Project/Resources/Models/Tile", "Tile.obj", renderer_->Opaque));
+	puzzleScenePortalModel_->GetMaterial()->SetColor({ 0.0f,0.0f,1.0f,1.0f });
+
+	puzzleScenePortal_ = std::make_unique<PuzzleScenePortal>();
+	puzzleScenePortal_->Initialize(puzzleScenePortalModel_.get(), { 17.0f,-3.0f,0.0f });
+	puzzleScenePortal_->SetScale({ 0.5f,0.5f,0.5f });
+
+	//Goal
+	goalModel_.reset(Model::CreateFromOBJ("Project/Resources/Models/Tile", "Tile.obj", renderer_->Opaque));
+	goalModel_->GetMaterial()->SetColor({ 0.0f,1.0f,0.0f,1.0f });
+
+	goal_ = std::make_unique<Goal>();
+	goal_->Initialize(goalModel_.get(), { 32.0f,5.3f,0.0f });
+	goal_->SetScale({ 0.5f,0.5f,0.5f });
+
+	soundHandle_ = audio_->SoundLoadWave("Project/Resources/Sounds/select.wav");
 }
 
 void GamePlayScene::Finalize() {
@@ -35,12 +76,16 @@ void GamePlayScene::Finalize() {
 
 void GamePlayScene::Update() {
 	
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		stageObject_[i]->Update();
 	}
 
 	playerManager_->Update();
+
+	puzzleScenePortal_->Update();
+
+	goal_->Update();
 
 	//カメラの追従処理
 	Vector3 playerCenterPosition = playerManager_->GetPlayer()->GetWorldTransform().translation_;
@@ -81,6 +126,7 @@ void GamePlayScene::Update() {
 
 	if (input_->IsPushKeyEnter(DIK_P))
 	{
+		audio_->SoundPlayWave(soundHandle_, false, 1.0f);
 		sceneManager_->ChangeScene("GamePuzzleScene");
 	}
 
@@ -94,6 +140,14 @@ void GamePlayScene::Update() {
 		sceneManager_->ChangeScene("GameOverScene");
 	}
 
+	//衝突判定
+	collisionManager_->ClearColliderList();
+	/*collisionManager_->SetColliderList(player_.get());*/
+
+	collisionManager_->SetColliderList(puzzleScenePortal_.get());
+
+	collisionManager_->CheckAllCollisions();
+
 	camera_.UpdateMatrix();
 
 	ImGui::Begin("Play");
@@ -104,9 +158,18 @@ void GamePlayScene::Update() {
 }
 
 void GamePlayScene::Draw() {
+
+	renderer_->PreDrawSprites(Renderer::kBlendModeNormal);
+
+	backSprite_->Draw();
+
+	renderer_->PostDrawSprites();
+
+	GraphicsCore::GetInstance()->ClearDepthBuffer();
+
 #pragma region モデルの描画処理
 
-	if (GamePuzzleScene::form == 1)
+	if (GamePuzzleScene::form == 2)
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -115,6 +178,10 @@ void GamePlayScene::Draw() {
 	}
 
 	playerManager_->Draw(camera_);
+
+	puzzleScenePortal_->Draw(camera_);
+
+	goal_->Draw(camera_);
 
 	//モデルの描画
 	renderer_->Render();
@@ -135,6 +202,10 @@ void GamePlayScene::DrawUI() {
 
 	//スプライト描画
 	renderer_->PreDrawSprites(Renderer::kBlendModeNormal);
+
+	moveSprite_->Draw();
+
+	jumpSprite_->Draw();
 
 	renderer_->PostDrawSprites();
 

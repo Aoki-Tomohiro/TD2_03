@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Engine/Components/CollisionManager/CollisionConfig.h"
+#include "Project/Scene/GamePuzzleScene.h"
 #include <numbers>
 
 void Player::Initialize() {
@@ -12,6 +13,18 @@ void Player::Initialize() {
 	SetCollisionPrimitive(kCollisionPrimitiveAABB);
 	SetCollisionAttribute(kCollisionAttributePlayer);
 	SetCollisionMask(kCollisionMaskPlayer);
+
+	if (GamePuzzleScene::form == 0)
+	{
+		worldTransformBase_.translation_.x = -7.0f;
+		worldTransformBase_.translation_.y = -3.7f;
+	}
+
+	if (GamePuzzleScene::form == 1 || GamePuzzleScene::form == 2)
+	{
+		worldTransformBase_.translation_.x = 15.0f;
+		worldTransformBase_.translation_.y = -3.7f;
+	}
 };
 void Player::Update() {
 
@@ -123,8 +136,8 @@ void Player::MoveUpdata() {
 		// 移動
 		worldTransformBase_.translation_ += verticalVelocity_;
 		// 地面より下に行かないようにする
-		if (worldTransformBase_.translation_.y <= -3.0f) {
-			worldTransformBase_.translation_.y = -3.0f;
+		if (worldTransformBase_.translation_.y <= -3.7f) {
+			worldTransformBase_.translation_.y = -3.7f;
 		}
 
 		//ジャンプ
@@ -190,8 +203,8 @@ void Player::MoveUpdata() {
 		// 移動
 		worldTransformBase_.translation_ += verticalVelocity_;
 		// 地面より下に行かないようにする
-		if (worldTransformBase_.translation_.y <= -3.0f) {
-			worldTransformBase_.translation_.y = -3.0f;
+		if (worldTransformBase_.translation_.y <= -3.7f) {
+			worldTransformBase_.translation_.y = -3.7f;
 		}
 
 		// ジャンプ
@@ -219,7 +232,7 @@ void Player::JumpUpdata() {
 	// 加速
 	velocity_ += accelerationVector;
 
-	if (worldTransformBase_.translation_.y <= -3.0f) {
+	if (worldTransformBase_.translation_.y <= -3.7f) {
 		// ジャンプ終了
 		behaviorRequest_ = Behavior::kRoot;
 		worldTransformBase_.translation_.y = -3.0f;

@@ -1,6 +1,8 @@
 #include "Engine/Framework/Scene/IScene.h"
 #include "Engine/Framework/Object/GameObjectManager.h"
 #include "Engine/Base/Renderer.h"
+#include "Engine/2D/Sprite.h"
+#include "Engine/Base/TextureManager.h"
 #include "Engine/Components/Input.h"
 #include "Engine/3D/Camera/Camera.h"
 #include "Engine/Components/CollisionManager/CollisionManager.h"
@@ -44,6 +46,9 @@ private:
 	//衝突マネージャー
 	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
 
+	//TextureManager
+	TextureManager* textureManager_ = nullptr;
+
 	//インプット
 	Input* input_ = nullptr;
 
@@ -54,5 +59,10 @@ private:
 
 	std::unique_ptr<Model> puzzlePlayerModel_;
 	std::unique_ptr<PuzzlePlayer> puzzlePlayer_;
+
+	//タイトル用のスプライト
+	std::unique_ptr<Sprite> backSprite_ = nullptr;
+	//タイトルのテクスチャ
+	uint32_t backTextureHandle_ = 0;
 };
 
