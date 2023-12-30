@@ -4,9 +4,12 @@
 #include "Engine/Base/Renderer.h"
 #include "Engine/Components/Input.h"
 #include "Project/Player/PlayerManager.h"
+#include "Project/GameObject/Ground/GroundManager.h"
 
 #include "Project/GameObject/StageObject/StageObject.h"
 #include "Engine/Components/CollisionManager/CollisionManager.h"
+
+
 
 class GamePlayScene : public IScene {
 public:
@@ -54,5 +57,8 @@ private:
 
 	std::unique_ptr<Model> stageObjectModel_;
 	std::unique_ptr<StageObject> stageObject_[3];
+
+	//地面
+	std::unique_ptr<GroundManager> groundManager_;
 };
 

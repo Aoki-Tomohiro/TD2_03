@@ -15,6 +15,9 @@ void GamePlayScene::Initialize() {
 	playerManager_ = std::make_unique<PlayerManager>();
 	playerManager_->Initialize();
 
+	groundManager_ = std::make_unique<GroundManager>();
+	groundManager_->Initialize();
+
 	stageObjectModel_.reset(Model::CreateFromOBJ("Project/Resources/Models/Tile", "Tile.obj", renderer_->Opaque));
 
 	for (int i = 0; i < 3; i++)
@@ -41,6 +44,7 @@ void GamePlayScene::Update() {
 	}
 
 	playerManager_->Update();
+	groundManager_->Update();
 
 	//カメラの追従処理
 	Vector3 playerCenterPosition = playerManager_->GetPlayer()->GetWorldTransform().translation_;
@@ -115,7 +119,7 @@ void GamePlayScene::Draw() {
 	}
 
 	playerManager_->Draw(camera_);
-
+	groundManager_->Draw(camera_);
 	//モデルの描画
 	renderer_->Render();
 	

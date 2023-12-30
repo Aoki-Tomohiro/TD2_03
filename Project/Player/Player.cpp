@@ -7,6 +7,7 @@ void Player::Initialize() {
 	worldTransformBase_.Initialize(); 
 	worldTransformBase_.translation_.x = -0.8f;
 	worldTransformBase_.translation_.y = -0.3f;
+	
 	AABB aabbSize{ .min{-0.4f,0.14f,-0.4f},.max{0.4f,0.8f,0.4f} };
 	SetAABB(aabbSize);
 	SetCollisionPrimitive(kCollisionPrimitiveAABB);
@@ -123,8 +124,8 @@ void Player::MoveUpdata() {
 		// 移動
 		worldTransformBase_.translation_ += verticalVelocity_;
 		// 地面より下に行かないようにする
-		if (worldTransformBase_.translation_.y <= -3.0f) {
-			worldTransformBase_.translation_.y = -3.0f;
+		if (worldTransformBase_.translation_.y <= -4.0f) {
+			worldTransformBase_.translation_.y = -4.0f;
 		}
 
 		//ジャンプ
@@ -190,8 +191,8 @@ void Player::MoveUpdata() {
 		// 移動
 		worldTransformBase_.translation_ += verticalVelocity_;
 		// 地面より下に行かないようにする
-		if (worldTransformBase_.translation_.y <= -3.0f) {
-			worldTransformBase_.translation_.y = -3.0f;
+		if (worldTransformBase_.translation_.y <= -4.0f) {
+			worldTransformBase_.translation_.y = -4.0f;
 		}
 
 		// ジャンプ
@@ -219,10 +220,10 @@ void Player::JumpUpdata() {
 	// 加速
 	velocity_ += accelerationVector;
 
-	if (worldTransformBase_.translation_.y <= -3.0f) {
+	if (worldTransformBase_.translation_.y <= -4.0f) {
 		// ジャンプ終了
 		behaviorRequest_ = Behavior::kRoot;
-		worldTransformBase_.translation_.y = -3.0f;
+		worldTransformBase_.translation_.y = -4.0f;
 	}
 };
 
