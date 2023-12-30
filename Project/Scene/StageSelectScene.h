@@ -50,17 +50,22 @@ private:
 
 	//スプライト
 	struct Stage {
-		std::unique_ptr<Sprite> sprite = nullptr;
+		Vector2 position{};
 		uint32_t num = 0;
 	};
-	std::array<Stage, 8> stages_{};
+	std::array<Stage, 6> stages_{};
+
+	//背景スプライトのスプライト
+	uint32_t backGroundTexture_ = 0;
+	std::unique_ptr<Sprite> backGroundSprite_ = nullptr;
 
 	//カーソルのスプライト
 	uint32_t cursorTextureHandle_ = 0;
 	std::unique_ptr<Sprite> cursorSprite_ = nullptr;
 
 	//カーソルの座標
-	Vector2 cursorPosition_{ 256.0f,212.0f };
+	Vector2 cursorPosition_{ 254.0f,226.0f };
+	Vector2 cursorVelocity_{ 382.0f,280.0f };
 
 	//カーソルの移動のフラグ
 	bool isCursorMovementEnabled_ = true;
