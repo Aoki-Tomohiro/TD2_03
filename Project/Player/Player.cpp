@@ -258,60 +258,63 @@ Vector3 Player::GetLocalPosition() {
 
 
 void Player::OnCollision(Collider* collider) {
-	AABB aabbA = {
-	    .min{worldTransformBase_.translation_.x + GetAABB().min.x,worldTransformBase_.translation_.y + GetAABB().min.y,worldTransformBase_.translation_.z + GetAABB().min.z},
-	    .max{worldTransformBase_.translation_.x + GetAABB().max.x,worldTransformBase_.translation_.y + GetAABB().max.y,worldTransformBase_.translation_.z + GetAABB().max.z},
-	};
-	AABB aabbB = {
-		.min{collider->GetWorldTransform().translation_.x + collider->GetAABB().min.x,collider->GetWorldTransform().translation_.y + collider->GetAABB().min.y,collider->GetWorldTransform().translation_.z + collider->GetAABB().min.z},
-		.max{collider->GetWorldTransform().translation_.x + collider->GetAABB().max.x,collider->GetWorldTransform().translation_.y + collider->GetAABB().max.y,collider->GetWorldTransform().translation_.z + collider->GetAABB().max.z},
-	};
-
-	Vector3 overlapAxis = {
-		std::min<float>(aabbA.max.x,aabbB.max.x) - std::max<float>(aabbA.min.x,aabbB.min.x),
-		std::min<float>(aabbA.max.y,aabbB.max.y) - std::max<float>(aabbA.min.y,aabbB.min.y),
-		std::min<float>(aabbA.max.z,aabbB.max.z) - std::max<float>(aabbA.min.z,aabbB.min.z),
-	};
-
-	Vector3 directionAxis{};
-	if (overlapAxis.x < overlapAxis.y && overlapAxis.x < overlapAxis.z) {
-		//X軸方向で最小の重なりが発生している場合
-		directionAxis.x = (worldTransformBase_.translation_.x < collider->GetWorldTransform().translation_.x) ? -1.0f : 1.0f;
-		directionAxis.y = 0.0f;
-	}
-	else if (overlapAxis.y < overlapAxis.x && overlapAxis.y < overlapAxis.z) {
-		//Y軸方向で最小の重なりが発生している場合
-		directionAxis.y = (worldTransformBase_.translation_.y < collider->GetWorldTransform().translation_.y) ? -1.0f : 1.0f;
-		directionAxis.x = 0.0f;
-	}
-	else if (overlapAxis.z < overlapAxis.x && overlapAxis.z < overlapAxis.y)
+	if (collider->GetCollisionAttribute() == kCollisionAttributeEnemy)
 	{
-		directionAxis.z = (worldTransformBase_.translation_.z < collider->GetWorldTransform().translation_.z) ? -1.0f : 1.0f;
-		directionAxis.x = 0.0f;
-		directionAxis.y = 0.0f;
+		AABB aabbA = {
+		.min{worldTransformBase_.translation_.x + GetAABB().min.x,worldTransformBase_.translation_.y + GetAABB().min.y,worldTransformBase_.translation_.z + GetAABB().min.z},
+		.max{worldTransformBase_.translation_.x + GetAABB().max.x,worldTransformBase_.translation_.y + GetAABB().max.y,worldTransformBase_.translation_.z + GetAABB().max.z},
+		};
+		AABB aabbB = {
+			.min{collider->GetWorldTransform().translation_.x + collider->GetAABB().min.x,collider->GetWorldTransform().translation_.y + collider->GetAABB().min.y,collider->GetWorldTransform().translation_.z + collider->GetAABB().min.z},
+			.max{collider->GetWorldTransform().translation_.x + collider->GetAABB().max.x,collider->GetWorldTransform().translation_.y + collider->GetAABB().max.y,collider->GetWorldTransform().translation_.z + collider->GetAABB().max.z},
+		};
+
+		Vector3 overlapAxis = {
+			std::min<float>(aabbA.max.x,aabbB.max.x) - std::max<float>(aabbA.min.x,aabbB.min.x),
+			std::min<float>(aabbA.max.y,aabbB.max.y) - std::max<float>(aabbA.min.y,aabbB.min.y),
+			std::min<float>(aabbA.max.z,aabbB.max.z) - std::max<float>(aabbA.min.z,aabbB.min.z),
+		};
+
+		Vector3 directionAxis{};
+		if (overlapAxis.x < overlapAxis.y && overlapAxis.x < overlapAxis.z) {
+			//X軸方向で最小の重なりが発生している場合
+			directionAxis.x = (worldTransformBase_.translation_.x < collider->GetWorldTransform().translation_.x) ? -1.0f : 1.0f;
+			directionAxis.y = 0.0f;
+		}
+		else if (overlapAxis.y < overlapAxis.x && overlapAxis.y < overlapAxis.z) {
+			//Y軸方向で最小の重なりが発生している場合
+			directionAxis.y = (worldTransformBase_.translation_.y < collider->GetWorldTransform().translation_.y) ? -1.0f : 1.0f;
+			directionAxis.x = 0.0f;
+		}
+		else if (overlapAxis.z < overlapAxis.x && overlapAxis.z < overlapAxis.y)
+		{
+			directionAxis.z = (worldTransformBase_.translation_.z < collider->GetWorldTransform().translation_.z) ? -1.0f : 1.0f;
+			directionAxis.x = 0.0f;
+			directionAxis.y = 0.0f;
+		}
+
+		worldTransformBase_.translation_ += Multiply(overlapAxis, directionAxis);
+		worldTransformBase_.UpdateMatrixFromEuler();
+
+		// Rayの原点
+		Vector3 origin = worldTransformBase_.translation_;
+
+		// Rayの方向ベクトル
+		Vector3 direction = { 0.0f, -1.0f, 0.0f };
+
+		// X軸方向での交差距離を計算
+		float tMin = (aabbB.min.x - origin.x) / direction.x;
+		float tMax = (aabbB.max.x - origin.x) / direction.x;
+		if (tMin > tMax) std::swap(tMin, tMax);
+
+		// Y軸方向での交差距離を計算
+		float tyMin = (aabbB.min.y - origin.y) / direction.y;
+		float tyMax = (aabbB.max.y - origin.y) / direction.y;
+
+		// 有効な範囲内での最小と最大の交差距離を更新
+		if (tyMin > tyMax) std::swap(tyMin, tyMax);
+		if (tyMin > tMax || tyMax < tMin) return;
+
+		behaviorRequest_ = Behavior::kRoot;
 	}
-
-	worldTransformBase_.translation_ += Multiply(overlapAxis, directionAxis);
-	worldTransformBase_.UpdateMatrixFromEuler();
-
-	// Rayの原点
-	Vector3 origin = worldTransformBase_.translation_;
-
-	// Rayの方向ベクトル
-	Vector3 direction = { 0.0f, -1.0f, 0.0f };
-
-	// X軸方向での交差距離を計算
-	float tMin = (aabbB.min.x - origin.x) / direction.x;
-	float tMax = (aabbB.max.x - origin.x) / direction.x;
-	if (tMin > tMax) std::swap(tMin, tMax);
-
-	// Y軸方向での交差距離を計算
-	float tyMin = (aabbB.min.y - origin.y) / direction.y;
-	float tyMax = (aabbB.max.y - origin.y) / direction.y;
-
-	// 有効な範囲内での最小と最大の交差距離を更新
-	if (tyMin > tyMax) std::swap(tyMin, tyMax);
-	if (tyMin > tMax || tyMax < tMin) return;
-
-	behaviorRequest_ = Behavior::kRoot;
 }

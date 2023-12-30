@@ -39,8 +39,6 @@ void GamePlayScene::Initialize() {
 	{
 		stageObject_[i] = std::make_unique<StageObject>();
 	}
-
-	collisionManager_ = std::make_unique<CollisionManager>();
   
 	stageObject_[0]->Initialize(stageObjectModel_.get(), { 20.0f,-2.7f,0.0f });
 	stageObject_[0]->SetScale({ 0.8f,0.8f,0.8f });
@@ -104,11 +102,12 @@ void GamePlayScene::Update() {
 	collisionManager_->SetColliderList(playerManager_->GetPlayer());
 	if (GamePuzzleScene::form == 1)
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			collisionManager_->SetColliderList(stageObject_[i].get());
 		}
 	}
+	collisionManager_->SetColliderList(puzzleScenePortal_.get());
 	collisionManager_->CheckAllCollisions();
 
 	if (input_->IsControllerConnected())
@@ -139,16 +138,6 @@ void GamePlayScene::Update() {
 	{
 		sceneManager_->ChangeScene("GameOverScene");
 	}
-
-	//衝突判定
-	collisionManager_->ClearColliderList();
-	/*collisionManager_->SetColliderList(player_.get());*/
-
-	collisionManager_->SetColliderList(puzzleScenePortal_.get());
-
-	collisionManager_->CheckAllCollisions();
-
-	camera_.UpdateMatrix();
 
 	ImGui::Begin("Play");
 	ImGui::Text("GamePuzzleScene :  PKey");
