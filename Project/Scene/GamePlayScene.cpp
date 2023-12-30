@@ -129,7 +129,7 @@ void GamePlayScene::Update() {
 		}*/
 	}
 
-	if (input_->IsPushKeyEnter(DIK_P))
+	if (puzzleScenePortal_->GetIsHit() == true && input_->IsPressButtonEnter(XINPUT_GAMEPAD_X))
 	{
 		audio_->SoundPlayWave(soundHandle_, false, 1.0f);
 		sceneManager_->ChangeScene("GamePuzzleScene");
