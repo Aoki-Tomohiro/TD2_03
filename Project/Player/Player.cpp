@@ -235,7 +235,7 @@ void Player::JumpUpdata() {
 	if (worldTransformBase_.translation_.y <= -3.7f) {
 		// ジャンプ終了
 		behaviorRequest_ = Behavior::kRoot;
-		worldTransformBase_.translation_.y = -3.0f;
+		worldTransformBase_.translation_.y = -3.7f;
 	}
 };
 
