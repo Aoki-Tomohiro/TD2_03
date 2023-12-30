@@ -15,19 +15,18 @@ void StageSelectScene::Initialize() {
 
 	//スプライトの生成
 	for (uint32_t i = 0; i < stages_.size(); i++) {
-		stages_[i].sprite.reset(Sprite::Create(textureHandle_, { 0.0f,0.0f }));
-		stages_[i].sprite->SetAnchorPoint({ 0.5f,0.5f });
-		stages_[i].sprite->SetSize({ 64.0f,64.0f });
 		stages_[i].num = i;
 	}
-	stages_[0].sprite->SetPosition({ 256.0f,212.0f });
-	stages_[1].sprite->SetPosition({ 512.0f,212.0f });
-	stages_[2].sprite->SetPosition({ 768.0f,212.0f });
-	stages_[3].sprite->SetPosition({ 1024.0f,212.0f });
-	stages_[4].sprite->SetPosition({ 256.0f,508.0f });
-	stages_[5].sprite->SetPosition({ 512.0f,508.0f });
-	stages_[6].sprite->SetPosition({ 768.0f,508.0f });
-	stages_[7].sprite->SetPosition({ 1024.0f,508.0f });
+	stages_[0].position = { 254.0f,226.0f };
+	stages_[1].position = { 636.0f,226.0f };
+	stages_[2].position = { 1018.0f,226.0f };
+	stages_[3].position = { 254.0f,506.0f };
+	stages_[4].position = { 636.0f,506.0f };
+	stages_[5].position = { 1018.0f,506.0f };
+
+	//背景のスプライトの生成
+	backGroundTexture_ = TextureManager::Load("Project/Resources/Images/select.png");
+	backGroundSprite_.reset(Sprite::Create(backGroundTexture_, { 0.0f,0.0f }));
 
 	//カーソルのスプライトの生成
 	cursorTextureHandle_ = TextureManager::Load("Project/Resources/Images/Cursor.png");
@@ -63,24 +62,24 @@ void StageSelectScene::Update() {
 		};
 
 		if (Length(stickTilt) > threshold) {
-			//左右にカーソルを動かす
 			if (isCursorMovementEnabled_) {
+				//左右にカーソルを動かす
 				if (stickTilt.x < -threshold) {
-					cursorPosition_.x -= 256.0f;
+					cursorPosition_.x -= cursorVelocity_.x;
 					isCursorMovementEnabled_ = false;
 				}
 				else if (stickTilt.x > threshold) {
-					cursorPosition_.x += 256.0f;
+					cursorPosition_.x += cursorVelocity_.x;
 					isCursorMovementEnabled_ = false;
 				}
 
 				//上下にカーソルを動かす
 				if (stickTilt.y < -threshold) {
-					cursorPosition_.y += 296.0f;
+					cursorPosition_.y += cursorVelocity_.y;
 					isCursorMovementEnabled_ = false;
 				}
 				else if (stickTilt.y > threshold) {
-					cursorPosition_.y -= 296.0f;
+					cursorPosition_.y -= cursorVelocity_.y;
 					isCursorMovementEnabled_ = false;
 				}
 			}
@@ -89,7 +88,7 @@ void StageSelectScene::Update() {
 		//ステージを選択する
 		if (input_->IsPressButtonEnter(XINPUT_GAMEPAD_A)) {
 			for (Stage& stage : stages_) {
-				if (cursorPosition_.x == stage.sprite->GetPosition().x && cursorPosition_.y == stage.sprite->GetPosition().y) {
+				if (cursorPosition_.x == stage.position.x && cursorPosition_.y == stage.position.y) {
 					GamePlayScene::stageNum = stage.num;
 					audio_->SoundPlayWave(soundHandle_, false, 1.0f);
 					sceneManager_->ChangeScene("GamePlayScene");
@@ -98,10 +97,41 @@ void StageSelectScene::Update() {
 		}
 	}
 
-	const float kPosMinX = 256.0f;
-	const float kPosMaxX = 1024.0f;
-	const float kPosMinY = 212.0f;
-	const float kPosMaxY = 508.0f;
+	//キーボード操作
+	if (input_->IsPushKeyEnter(DIK_A)) {
+		cursorPosition_.x -= cursorVelocity_.x;
+		isCursorMovementEnabled_ = false;
+	}
+	else if (input_->IsPushKeyEnter(DIK_D))
+	{
+		cursorPosition_.x += cursorVelocity_.x;
+		isCursorMovementEnabled_ = false;
+	}
+
+	if (input_->IsPushKeyEnter(DIK_S)) {
+		cursorPosition_.y += cursorVelocity_.y;
+		isCursorMovementEnabled_ = false;
+	}
+	else if (input_->IsPushKeyEnter(DIK_W)) {
+		cursorPosition_.y -= cursorVelocity_.y;
+		isCursorMovementEnabled_ = false;
+	}
+
+	//ステージを選択する
+	if (input_->IsPushKeyEnter(DIK_SPACE)) {
+		for (Stage& stage : stages_) {
+			if (cursorPosition_.x == stage.position.x && cursorPosition_.y == stage.position.y) {
+				GamePlayScene::stageNum = stage.num;
+				audio_->SoundPlayWave(soundHandle_, false, 1.0f);
+				sceneManager_->ChangeScene("GamePlayScene");
+			}
+		}
+	}
+
+	const float kPosMinX = 254.0f;
+	const float kPosMaxX = 1018.0f;
+	const float kPosMinY = 226.0f;
+	const float kPosMaxY = 506.0f;
 	cursorPosition_.x = std::clamp(cursorPosition_.x, kPosMinX, kPosMaxX);
 	cursorPosition_.y = std::clamp(cursorPosition_.y, kPosMinY, kPosMaxY);
 
@@ -109,6 +139,8 @@ void StageSelectScene::Update() {
 	cursorSprite_->SetPosition(cursorPosition_);
 
 	ImGui::Begin("Select");
+	ImGui::DragFloat2("CursorPosition", &cursorPosition_.x);
+	ImGui::DragFloat2("CursorVelocity", &cursorVelocity_.x);
 	ImGui::End();
 }
 
@@ -120,10 +152,8 @@ void StageSelectScene::DrawUI() {
 #pragma region スプライトの描画
 	renderer_->PreDrawSprites(Renderer::kBlendModeNormal);
 
-	//スプライトの描画
-	for (Stage& stage : stages_) {
-		stage.sprite->Draw();
-	}
+	//背景スプライト
+	backGroundSprite_->Draw();
 
 	//カーソルのスプライトの描画
 	cursorSprite_->Draw();
