@@ -17,6 +17,15 @@ void GamePlayScene::Initialize() {
 	//Audioのインスタンスを取得
 	audio_ = Audio::GetInstance();
 
+	backTextureHandle_ = TextureManager::Load("Project/Resources/Images/back.png");
+	backSprite_.reset(Sprite::Create(backTextureHandle_, { 0.0f,0.0f }));
+
+	moveTextureHandle_ = TextureManager::Load("Project/Resources/Images/moveL.png");
+	moveSprite_.reset(Sprite::Create(moveTextureHandle_, { 950.0f,520.0f }));
+
+	jumpTextureHandle_ = TextureManager::Load("Project/Resources/Images/jamp.png");
+	jumpSprite_.reset(Sprite::Create(jumpTextureHandle_, { 950.0f,300.0f }));
+
 	camera_.Initialize();
 	camera_.translation_.z = -30.0f;
 
@@ -135,6 +144,15 @@ void GamePlayScene::Update() {
 }
 
 void GamePlayScene::Draw() {
+
+	renderer_->PreDrawSprites(Renderer::kBlendModeNormal);
+
+	backSprite_->Draw();
+
+	renderer_->PostDrawSprites();
+
+	GraphicsCore::GetInstance()->ClearDepthBuffer();
+
 #pragma region モデルの描画処理
 
 	if (GamePuzzleScene::form == 2)
@@ -173,6 +191,10 @@ void GamePlayScene::DrawUI() {
 
 	//スプライト描画
 	renderer_->PreDrawSprites(Renderer::kBlendModeNormal);
+
+	moveSprite_->Draw();
+
+	jumpSprite_->Draw();
 
 	renderer_->PostDrawSprites();
 

@@ -14,6 +14,9 @@ void GameTitleScene::Initialize() {
 
 	GamePuzzleScene::form = 0;
 
+	titleTextureHandle_ = TextureManager::Load("Project/Resources/Images/titles.png");
+	titleSprite_.reset(Sprite::Create(titleTextureHandle_, { 0.0f,0.0f }));
+
 	soundHandle_[0] = audio_->SoundLoadWave("Project/Resources/Sounds/bgm.wav");
 	soundHandle_[1] = audio_->SoundLoadWave("Project/Resources/Sounds/select.wav");
 	audio_->SoundPlayWave(soundHandle_[0], true, 1.0f);
@@ -69,6 +72,8 @@ void GameTitleScene::DrawUI() {
 
 	//スプライト描画
 	renderer_->PreDrawSprites(Renderer::kBlendModeNormal);
+
+	titleSprite_->Draw();
 
 	renderer_->PostDrawSprites();
 

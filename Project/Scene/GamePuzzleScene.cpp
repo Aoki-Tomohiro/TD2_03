@@ -13,6 +13,9 @@ void GamePuzzleScene::Initialize() {
 	//インプットのインスタンスを取得
 	input_ = Input::GetInstance();
 
+	backTextureHandle_ = TextureManager::Load("Project/Resources/Images/back.png");
+	backSprite_.reset(Sprite::Create(backTextureHandle_, { 0.0f,0.0f }));
+
 	camera_.Initialize();
 
 	//プレイヤー
@@ -96,6 +99,15 @@ void GamePuzzleScene::Update() {
 }
 
 void GamePuzzleScene::Draw() {
+
+	renderer_->PreDrawSprites(Renderer::kBlendModeNormal);
+
+	backSprite_->Draw();
+
+	renderer_->PostDrawSprites();
+
+	GraphicsCore::GetInstance()->ClearDepthBuffer();
+
 #pragma region モデルの描画処理
 
 	for (int i = 0; i < 9; i++)

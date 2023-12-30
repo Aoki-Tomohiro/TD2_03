@@ -2,6 +2,8 @@
 #include "Engine/Framework/Scene/IScene.h"
 #include "Engine/Framework/Object/GameObjectManager.h"
 #include "Engine/Base/Renderer.h"
+#include "Engine/2D/Sprite.h"
+#include "Engine/Base/TextureManager.h"
 #include "Engine/Components/Input.h"
 #include "Engine/Components/Audio.h"
 #include "Project/Player/PlayerManager.h"
@@ -47,6 +49,9 @@ private:
 	//衝突マネージャー
 	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
 	
+	//TextureManager
+	TextureManager* textureManager_ = nullptr;
+
 	//インプット
 	Input* input_ = nullptr;
 
@@ -70,5 +75,20 @@ private:
 
 	//サウンドハンドル
 	uint32_t soundHandle_ = 0u;
+
+	//タイトル用のスプライト
+	std::unique_ptr<Sprite> backSprite_ = nullptr;
+	//タイトルのテクスチャ
+	uint32_t backTextureHandle_ = 0;
+
+	//移動UI用のスプライト
+	std::unique_ptr<Sprite> moveSprite_ = nullptr;
+	//移動UIのテクスチャ
+	uint32_t moveTextureHandle_ = 0;
+
+	//ジャンプUI用のスプライト
+	std::unique_ptr<Sprite> jumpSprite_ = nullptr;
+	//ジャンプUIのテクスチャ
+	uint32_t jumpTextureHandle_ = 0;
 };
 
