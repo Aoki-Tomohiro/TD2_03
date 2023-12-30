@@ -39,15 +39,15 @@ void GamePlayScene::Initialize() {
 	{
 		stageObject_[i] = std::make_unique<StageObject>();
 	}
-  
-	stageObject_[0]->Initialize(stageObjectModel_.get(), { 20.0f,-2.7f,0.0f });
 	stageObject_[0]->SetScale({ 0.8f,0.8f,0.8f });
-	stageObject_[1]->Initialize(stageObjectModel_.get(), { 23.0f,0.3f,0.0f });
+	stageObject_[0]->Initialize(stageObjectModel_.get(), { 20.0f,-2.7f,0.0f });
 	stageObject_[1]->SetScale({ 0.8f,0.8f,0.8f });
-	stageObject_[2]->Initialize(stageObjectModel_.get(), { 26.0f,3.3f,0.0f });
+	stageObject_[1]->Initialize(stageObjectModel_.get(), { 23.0f,0.3f,0.0f });
 	stageObject_[2]->SetScale({ 0.8f,0.8f,0.8f });
-	stageObject_[3]->Initialize(stageObjectModel_.get(), { 32.0f,3.3f,0.0f });
+	stageObject_[2]->Initialize(stageObjectModel_.get(), { 26.0f,3.3f,0.0f });
 	stageObject_[3]->SetScale({ 3.0f,0.8f,0.8f });
+	stageObject_[3]->Initialize(stageObjectModel_.get(), { 32.0f,3.3f,0.0f });
+	
 
 	//PuzzleScenePortal
 	puzzleScenePortalModel_.reset(Model::CreateFromOBJ("Project/Resources/Models/Tile", "Tile.obj", renderer_->Opaque));
@@ -100,7 +100,7 @@ void GamePlayScene::Update() {
 
 	collisionManager_->ClearColliderList();
 	collisionManager_->SetColliderList(playerManager_->GetPlayer());
-	if (GamePuzzleScene::form == 1)
+	if (GamePuzzleScene::form == 2)
 	{
 		for (int i = 0; i < 4; i++)
 		{
