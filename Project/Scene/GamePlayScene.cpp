@@ -57,13 +57,13 @@ void GamePlayScene::Update() {
 
 	collisionManager_->ClearColliderList();
 	collisionManager_->SetColliderList(playerManager_->GetPlayer());
-	//if (GamePuzzleScene::form == 1)
-	//{
+	if (GamePuzzleScene::form == 1)
+	{
 		for (int i = 0; i < 3; i++)
 		{
 			collisionManager_->SetColliderList(stageObject_[i].get());
 		}
-	//}
+	}
 	collisionManager_->CheckAllCollisions();
 
 	if (input_->IsControllerConnected())
@@ -106,19 +106,18 @@ void GamePlayScene::Update() {
 void GamePlayScene::Draw() {
 #pragma region モデルの描画処理
 
-	//if (GamePuzzleScene::form == 1)
-	//{
+	if (GamePuzzleScene::form == 1)
+	{
 		for (int i = 0; i < 3; i++)
 		{
 			stageObject_[i]->Draw(camera_);
 		}
-	//}
+	}
+
+	playerManager_->Draw(camera_);
 
 	//モデルの描画
 	renderer_->Render();
-
-	playerManager_->Draw(camera_);
-	Renderer::GetInstance()->Render();
 	
 #pragma endregion
 
