@@ -68,7 +68,7 @@ void GamePlayScene::Initialize() {
 	goalModel_->GetMaterial()->SetColor({ 0.0f,1.0f,0.0f,1.0f });
 
 	goal_ = std::make_unique<Goal>();
-	goal_->Initialize(goalModel_.get(), { 32.0f,5.3f,0.0f });
+	goal_->Initialize(goalModel_.get(), { 32.0f,5.1f,0.0f });
 	goal_->SetScale({ 0.5f,0.5f,0.5f });
 
 	soundHandle_ = audio_->SoundLoadWave("Project/Resources/Sounds/select.wav");
@@ -114,6 +114,7 @@ void GamePlayScene::Update() {
 		}
 	}
 	collisionManager_->SetColliderList(puzzleScenePortal_.get());
+	collisionManager_->SetColliderList(goal_.get());
 	collisionManager_->CheckAllCollisions();
 
 	if (input_->IsControllerConnected())
@@ -127,6 +128,11 @@ void GamePlayScene::Update() {
 		{
 			sceneManager_->ChangeScene("GameOverScene");
 		}*/
+	}
+
+	if (goal_->GetIsHit() == true && input_->IsPressButtonEnter(XINPUT_GAMEPAD_X))
+	{
+		sceneManager_->ChangeScene("GameClearScene");
 	}
 
 	if (puzzleScenePortal_->GetIsHit() == true && input_->IsPressButtonEnter(XINPUT_GAMEPAD_X))
@@ -166,7 +172,7 @@ void GamePlayScene::Draw() {
 
 	if (GamePuzzleScene::form == 2)
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			stageObject_[i]->Draw(camera_);
 		}

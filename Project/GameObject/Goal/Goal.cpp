@@ -21,6 +21,8 @@ void Goal::Update() {
 
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrixFromEuler();
+
+	isHit_ = false;
 }
 
 void Goal::Draw(const Camera& camera) {
@@ -29,7 +31,7 @@ void Goal::Draw(const Camera& camera) {
 }
 
 void Goal::OnCollision(Collider* collider) {
-
+	isHit_ = true;
 }
 
 Vector3 Goal::GetWorldPosition() {

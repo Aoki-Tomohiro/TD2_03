@@ -93,7 +93,7 @@ void Player::MoveUpdata() {
 		bool isMove = false;
 
 		// 移動速度
-		const float kCharacterSpeed = 0.2f;
+		const float kCharacterSpeed = 0.08f;
 		// 移動量
 		velocity_ = {
 			(float)input_->GetLeftStickX(), 0.0f,0.0f };
